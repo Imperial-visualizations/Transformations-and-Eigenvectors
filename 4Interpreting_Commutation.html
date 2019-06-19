@@ -1,11 +1,7 @@
-<!doctype html>
-
-<html>
-
-
+<html lang="en">
 <head>
     <!--Page Info-->
-    <title>Derivation of a Fourier Series</title>
+    <title>Interpreting Commutation</title>
     <!--css link-->
     <link rel="stylesheet"
           href="styles/skeleton.css">
@@ -33,100 +29,209 @@
 </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 </head>
-</head>
-
 <body>
 
 
+
 <div class="container">
-
     <div class="row">
-
-
-        <div class='four columns'>
-            <h5></h5>
-
-            <h5 style="border-left: solid 5px rgb(219,209,0); padding-left: 8px;">Eigenvectors?</h5>
-
-
-            <p>
-                When you multiply a matrix by a vector, a new <em>transformed</em> vector is produced. In this
-                visualisation, you can set your own 2x2 matrix and see how it transforms all points (i.e. position
-                vectors) in 2D space.
-
-
-            </p>
-            <p>
-                The eigenvectors of a matrix are vectors whose direction do not change under the matrix transformation.
-                Position vectors along the span (direction) of the eigenvectors always remain on the same line, i.e.
-                they do not change direction, after they are transformed by a matrix.
-            </p>
-            <P>The eigenvalue is the scaling factor by which each position vector along the eigenvector span is
-                stretched.
-            </P>
-
-            <h5 style="border-left: solid 5px rgb(219,209,0); padding-left: 8px;">Set the Transformation Matrix:</h5>
-
-            <span id="blimp" data-unit=""></span>
-
-            <div class='two columnns' id='u'></div>
-            <div class="one column"></div>
-
-        </div>
-        <h5></h5>
-
-        <p>
-            <strong>
-                Set your matrix, align the probe line with the eigenvector lines, then apply the transformation. Notice
-                how then the position vectors always remain on the same line.</strong>
-        </p>
-
         <!-- Graph -->
-
-        <div class="eight columns">
-
-            <div id="graph">
+        <div class="six columns">
+            <h1>
+                On a Sphere:
+            </h1>
+            <div id="graph" style="width:450px; height:450px;">
             </div>
-            <div>
-                <div>
-                    <label class="slider">
-
-                        <label class="sliderTitle">Rotate probe line to track the transformation of different position
-                            vectors:&nbsp;
-                            <span id="blimp" data-unit=""></span>
+            <div id="frameSlider">
+                <label class="sliderTitle">
+                    Frame #:
+                    <span data-unit="" id="commuteAnimateSliderDisplay">
+       1
+      </span>
+                </label>
+                <label class="slider">
+                    <input class="inputs" id="commuteAnimateSlider" max="77" min="0" step="1" type="range" value="0">
+                    <span class="sliderMin">
+       0
+      </span>
+                    <span class="sliderMax">
+       77
+      </span>
+                </label>
+            </div>
+        </div>
+        <!--Bottons-->
+        <div class="six columns">
+            <!--Main Options-->
+            <ul class="tab-nav">
+                <li>
+                    <a class="button active" href="#rotate">
+                        Rotate
+                    </a>
+                </li>
+                <li>
+                    <a class="button" href="#reflect">
+                        Reflect
+                    </a>
+                </li>
+                <!--<li><a class="button" href="#scale">Scale</a></li>-->
+            </ul>
+            <div class="tab-content">
+                <!--Rotation-->
+                <div class="tab-pane active" id="rotate">
+                    <!--Rotation-->
+                    <!--x = 1, y = 2, z = 3-->
+                    <div class="rotate3D">
+                        <strong>
+                            Select Axis:
+                        </strong>
+                        <select id="rotateSelect">
+                            <option value="rotateX">
+                                X Axis
+                            </option>
+                            <option value="rotateY">
+                                Y Axis
+                            </option>
+                            <option value="rotateZ">
+                                Z Axis
+                            </option>
+                        </select>
+                        <label class="sliderTitle">
+                            Angle:
+                            <span data-unit=" π rad" id="rotatorDisplayA1">
+         (1/4)π rad
+        </span>
+                            or
+                            <span data-unit="º" id="rotatorDisplayA2">
+         45º
+        </span>
                         </label>
-
-                        <input id="controller" class="inputs" type="range" value="0" min="0" max="6.28" step="0.01"/>
-                        <span class="sliderMin">0</span><span class="sliderMax">6.28</span>
+                        <label class="slider">
+                            <input class="inputs" id="rotator" max="2" min="-2" step="0.125" type="range" value="0.25">
+                            <span class="sliderMin">
+         -2π
+        </span>
+                            <span class="sliderMax">
+         2π
+        </span>
+                        </label>
+                    </div>
+                    <!--Commute?-->
+                    <div class="rotateCommute">
+                        <h3 style="border-left: solid 5px rgb(182,109,255); padding-left: 8px;">
+                            Rotation A
+                        </h3>
+                        <label class="sliderTitle">
+                            Rotation about x-axis:
+                            <span data-unit="π rad" id="rotator1DisplayA1">
+         (1/2)π rad
+        </span>
+                            or
+                            <span data-unit="º" id="rotator1DisplayA2">
+         90º
+        </span>
+                        </label>
+                        <label class="slider">
+                            <input class="inputs" id="rotator1" max="2" min="-2" step="0.125" type="range" value="0.5">
+                            <span class="sliderMin">
+         -2π
+        </span>
+                            <span class="sliderMax">
+         2π
+        </span>
+                        </label>
+                        <h3 style="border-left: solid 5px rgb(219,209,0); padding-left: 8px;">
+                            Rotation B
+                        </h3>
+                        <label class="sliderTitle">
+                            Rotation about y-axis:
+                            <span data-unit="π rad" id="rotator2DisplayA1">
+         (1/2)π rad
+        </span>
+                            or
+                            <span data-unit="º" id="rotator2DisplayA2">
+         90º
+        </span>
+                        </label>
+                        <label class="slider">
+                            <input class="inputs" id="rotator2" max="2" min="-2" step="0.125" type="range" value="0.5">
+                            <span class="sliderMin">
+         -2π
+        </span>
+                            <span class="sliderMax">
+         2π
+        </span>
+                        </label>
+                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play">
+                        <!--<input type="button" value="Reset", onclick="reset()">-->
+                        <h3>
+                            △:
+                            <font style="color:rgb(182,109,255);">
+                                A
+                            </font>
+                            →
+                            <font style="color:rgb(219,209,0)">
+                                B
+                            </font>
+                        </h3>
+                        <h3>
+                            ▲:
+                            <font style="color:rgb(219,209,0)">
+                                B
+                            </font>
+                            →
+                            <font style="color:rgb(182,109,255);">
+                                A
+                            </font>
+                        </h3>
+                        <input id="hideCommute" type="button" value="↲ Go Back">
+                    </div>
+                </div>
+                <!--Reflection-->
+                <div class="tab-pane" id="reflect">
+                    <strong>
+                        Select Plane:
+                    </strong>
+                    <select id="reflectSelect">
+                        <option value="reflectX">
+                            X = 0
+                        </option>
+                        <option value="reflectY">
+                            Y = 0
+                        </option>
+                        <option value="reflectZ">
+                            Z = 0
+                        </option>
+                    </select>
+                </div>
+                <div class="playButtons">
+                    <input class="button-primary" id="animate" type="submit" value="Play">
+                    <input id="undo" type="button" value="⤺ Undo">
+                    <input id="reset" type="button" value="Reset to (-2,-2,2)">
+                    <h3>
+                        Transformation:
+                    </h3>
+                    <label>
+                        Current Vector = M x Previous Vector
                     </label>
+                    <p id="matrixDisplay">
+                    </p>
                 </div>
-
-
-                <button onclick="javascript:startAnimation();">Apply Transformation to 2D Space!</button>
-                <button title="Click to show/hide content" type="button"
-                        onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">
-                    Display/Hide Eigenvectors
-                </button>
-
-                <div id="spoiler" style="display:none">
-
-                    <div class='five columns'>
-                        <h5 style="border-left: solid 5px rgb(158,209,0); padding-left: 3px;">Eigenvector 1:</h5>
-                        <p id="eigenvector1"></p>
-                    </div>
-                    <div class="one column"></div>
-
-                    <div class='five columns'>
-                        <h5 style="border-left: solid 5px rgb(158,209,0); padding-left: 3px;">Eigenvector 2:</h5>
-                        <p id="eigenvector2"></p>
-                    </div>
-                </div>
-
-
+                <input id="showCommute" type="button" value="Commute?">
             </div>
         </div>
     </div>
-    <!--THE BRAINS-->
-    <script src=scripts/sketch2.js></script>
+</div>
+
+
+<!--Implement Scripts Here-->
+<script src="scripts/animate.js"
+        type="text/javascript"></script>
+
+<script src="scripts/objects.js"
+        type="text/javascript"></script>
+
+<script src="scripts/sphere.js"
+        type="text/javascript"></script>
 </body>
 </html>
