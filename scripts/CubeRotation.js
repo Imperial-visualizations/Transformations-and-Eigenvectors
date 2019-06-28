@@ -393,11 +393,15 @@ function Skew(){
 }
 
 
+
 //These functions are to display dynamically changing transformation matrices
 function rotatematrix(){
+
     axisSelector = document.getElementById("RotateSelect").value
     angleSelector = document.getElementById("RotateSlider").value
     angle = angleSelector*Math.PI
+
+
     if (axisSelector ==="RotXaxis") {
     rotateTable.rows[0].cells[0].innerHTML = 1
     rotateTable.rows[0].cells[1].innerHTML = 0
@@ -433,101 +437,110 @@ function rotatematrix(){
     rotateTable.rows[2].cells[1].innerHTML = 0
     rotateTable.rows[2].cells[2].innerHTML = 1
 
-
     }
 
 }
 function skewmatrix(){
+    angle = angleSelector*Math.PI
+    axisSelector = document.getElementById("RotateSelect").value
+    angleSelector = document.getElementById("RotateSlider").value
+
     axisSelector = document.getElementById("SkewSelect").value
     angleSelector = document.getElementById("SkewSlider").value
     angle = angleSelector*Math.PI
     if (axisSelector ==="SkewXaxis") {
-    skewTable.rows[0].cells[0].innerHTML = 1
-    skewTable.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
-    skewTable.rows[0].cells[2].innerHTML = 0
-    skewTable.rows[1].cells[0].innerHTML = 0
-    skewTable.rows[1].cells[1].innerHTML = 1
-    skewTable.rows[1].cells[2].innerHTML = 0
-    skewTable.rows[2].cells[0].innerHTML = 0
-    skewTable.rows[2].cells[1].innerHTML = 0
-    skewTable.rows[2].cells[2].innerHTML = 1
+    rotateTable.rows[0].cells[0].innerHTML = 1
+    rotateTable.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 0
+    rotateTable.rows[1].cells[1].innerHTML = 1
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = 1
 
 
 
     } else if (axisSelector === "SkewYAxis") {
-    skewTable.rows[0].cells[0].innerHTML = 1
-    skewTable.rows[0].cells[1].innerHTML = 0
-    skewTable.rows[0].cells[2].innerHTML = 0
-    skewTable.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
-    skewTable.rows[1].cells[1].innerHTML = 1
-    skewTable.rows[1].cells[2].innerHTML = 0
-    skewTable.rows[2].cells[0].innerHTML = 0
-    skewTable.rows[2].cells[1].innerHTML = 0
-    skewTable.rows[2].cells[2].innerHTML = 1
+    rotateTable.rows[0].cells[0].innerHTML = 1
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
+    rotateTable.rows[1].cells[1].innerHTML = 1
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = 1
 
     } else {
-    skewTable.rows[0].cells[0].innerHTML = 1
-    skewTable.rows[0].cells[1].innerHTML = 0
-    skewTable.rows[0].cells[2].innerHTML = 0
-    skewTable.rows[1].cells[0].innerHTML = 1
-    skewTable.rows[1].cells[1].innerHTML = 0
-    skewTable.rows[1].cells[2].innerHTML = 0
-    skewTable.rows[2].cells[0].innerHTML = 1
-    skewTable.rows[2].cells[1].innerHTML = "tan(" + angleSelector + "π)"
-    skewTable.rows[2].cells[2].innerHTML = 0
+    rotateTable.rows[0].cells[0].innerHTML = 1
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 1
+    rotateTable.rows[1].cells[1].innerHTML = 0
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 1
+    rotateTable.rows[2].cells[1].innerHTML = "tan(" + angleSelector + "π)"
+    rotateTable.rows[2].cells[2].innerHTML = 0
 
 
     }
 
 }
 function scalematrix(){
+    angle = angleSelector*Math.PI
+    axisSelector = document.getElementById("RotateSelect").value
+    angleSelector = document.getElementById("RotateSlider").value
+
+    axisSelector = document.getElementById("SkewSelect").value
+    angleSelector = document.getElementById("SkewSlider").value
     axisSelector = document.getElementById("ScaleSelect").value
     scaleSelector = document.getElementById("ScaleSlider").value
     if (axisSelector ==="ScaleXaxis") {
-    scaleTable.rows[0].cells[0].innerHTML = scaleSelector
-    scaleTable.rows[0].cells[1].innerHTML = 0
-    scaleTable.rows[0].cells[2].innerHTML = 0
-    scaleTable.rows[1].cells[0].innerHTML = 0
-    scaleTable.rows[1].cells[1].innerHTML = 1
-    scaleTable.rows[1].cells[2].innerHTML = 0
-    scaleTable.rows[2].cells[0].innerHTML = 0
-    scaleTable.rows[2].cells[1].innerHTML = 0
-    scaleTable.rows[2].cells[2].innerHTML = 1
+    rotateTable.rows[0].cells[0].innerHTML = scaleSelector
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 0
+    rotateTable.rows[1].cells[1].innerHTML = 1
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = 1
 
     } else if (axisSelector === "ScaleYaxis") {
-    scaleTable.rows[0].cells[0].innerHTML = 1
-    scaleTable.rows[0].cells[1].innerHTML = 0
-    scaleTable.rows[0].cells[2].innerHTML = 0
-    scaleTable.rows[1].cells[0].innerHTML = 0
-    scaleTable.rows[1].cells[1].innerHTML = scaleSelector
-    scaleTable.rows[1].cells[2].innerHTML = 0
-    scaleTable.rows[2].cells[0].innerHTML = 0
-    scaleTable.rows[2].cells[1].innerHTML = 0
-    scaleTable.rows[2].cells[2].innerHTML = 1
+    rotateTable.rows[0].cells[0].innerHTML = 1
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 0
+    rotateTable.rows[1].cells[1].innerHTML = scaleSelector
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = 1
 
 
 
     } else if (axisSelector === "ScaleZaxis") {
-    scaleTable.rows[0].cells[0].innerHTML = 1
-    scaleTable.rows[0].cells[1].innerHTML = 0
-    scaleTable.rows[0].cells[2].innerHTML = 0
-    scaleTable.rows[1].cells[0].innerHTML = 0
-    scaleTable.rows[1].cells[1].innerHTML = 1
-    scaleTable.rows[1].cells[2].innerHTML = 0
-    scaleTable.rows[2].cells[0].innerHTML = 0
-    scaleTable.rows[2].cells[1].innerHTML = 0
-    scaleTable.rows[2].cells[2].innerHTML = scaleSelector
+    rotateTable.rows[0].cells[0].innerHTML = 1
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 0
+    rotateTable.rows[1].cells[1].innerHTML = 1
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = scaleSelector
 
     }  else {
-    scaleTable.rows[0].cells[0].innerHTML = scaleSelector
-    scaleTable.rows[0].cells[1].innerHTML = 0
-    scaleTable.rows[0].cells[2].innerHTML = 0
-    scaleTable.rows[1].cells[0].innerHTML = 0
-    scaleTable.rows[1].cells[1].innerHTML = scaleSelector
-    scaleTable.rows[1].cells[2].innerHTML = 0
-    scaleTable.rows[2].cells[0].innerHTML = 0
-    scaleTable.rows[2].cells[1].innerHTML = 0
-    scaleTable.rows[2].cells[2].innerHTML = scaleSelector
+    rotateTable.rows[0].cells[0].innerHTML = scaleSelector
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 0
+    rotateTable.rows[1].cells[1].innerHTML = scaleSelector
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = scaleSelector
 
 
 
@@ -604,6 +617,7 @@ var zrot1 = [-1., -1., -1., -1., 1., 1., 1., 1.];
 
 
 layout = {
+        autosize:true,
       scene:{
          aspectmode: "cube",
        aspectratio: {

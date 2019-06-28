@@ -40,7 +40,7 @@
             <h1>
                 On a Sphere:
             </h1>
-            <div id="graph" style="width:450px; height:450px;">
+            <div id="graph">
             </div>
             <div id="frameSlider">
                 <label class="sliderTitle">
@@ -63,24 +63,10 @@
         <!--Bottons-->
         <div class="six columns">
             <!--Main Options-->
-            <ul class="tab-nav">
-                <li>
-                    <a class="button active" href="#rotate">
-                        Rotate
-                    </a>
-                </li>
-                <li>
-                    <a class="button" href="#reflect">
-                        Reflect
-                    </a>
-                </li>
-                <!--<li><a class="button" href="#scale">Scale</a></li>-->
-            </ul>
-            <div class="tab-content">
+
+
                 <!--Rotation-->
-                <div class="tab-pane active" id="rotate">
-                    <!--Rotation-->
-                    <!--x = 1, y = 2, z = 3-->
+                <h5>Rotate</h5>
                     <div class="rotate3D">
                         <strong>
                             Select Axis:
@@ -116,7 +102,58 @@
         </span>
                         </label>
                     </div>
+                    <div class="playButtons">
+                    <input class="button-primary" id="animate1" type="submit" value="Play">
+                    <input id="undo" type="button" value="⤺ Undo">
+                    <input id="reset" type="button" value="Reset to (-2,-2,2)">
+                    </div>
+                    <h3>
+                    Transformation:
+                    </h3>
+                    <label>
+                        Current Vector = M x Previous Vector
+                    </label>
+                    <p id="matrixDisplay">
+                    </p>
+
+
                     <!--Commute?-->
+
+
+                <!--Reflection-->
+            <h5>Reflect</h5>
+                <div class="reflect">
+                    <strong>
+                        Select Plane:
+                    </strong>
+                    <select id="reflectSelect">
+                        <option value="reflectX">
+                            X = 0
+                        </option>
+                        <option value="reflectY">
+                            Y = 0
+                        </option>
+                        <option value="reflectZ">
+                            Z = 0
+                        </option>
+                    </select>
+                </div>
+
+                    <div class="playButtons">
+                        <input id="animate2" class="button-primary" type="submit" value="Play">
+                        <input id="undo" type="button" value="&#10554; Undo">
+                        <input id="reset" type="button" value="Reset to (-2,-2,2)">
+                    </div>
+                    <h3>
+                    Transformation:
+                    </h3>
+                    <label>
+                        Current Vector = M x Previous Vector
+                    </label>
+                    <p id="matrixDisplay2">
+                    </p>
+
+
                     <div class="rotateCommute">
                         <h3 style="border-left: solid 5px rgb(182,109,255); padding-left: 8px;">
                             Rotation A
@@ -162,7 +199,7 @@
          2π
         </span>
                         </label>
-                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play">
+
                         <!--<input type="button" value="Reset", onclick="reset()">-->
                         <h3>
                             △:
@@ -184,42 +221,9 @@
                                 A
                             </font>
                         </h3>
-                        <input id="hideCommute" type="button" value="↲ Go Back">
+                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play">
                     </div>
-                </div>
-                <!--Reflection-->
-                <div class="tab-pane" id="reflect">
-                    <strong>
-                        Select Plane:
-                    </strong>
-                    <select id="reflectSelect">
-                        <option value="reflectX">
-                            X = 0
-                        </option>
-                        <option value="reflectY">
-                            Y = 0
-                        </option>
-                        <option value="reflectZ">
-                            Z = 0
-                        </option>
-                    </select>
-                </div>
-                <div class="playButtons">
-                    <input class="button-primary" id="animate" type="submit" value="Play">
-                    <input id="undo" type="button" value="⤺ Undo">
-                    <input id="reset" type="button" value="Reset to (-2,-2,2)">
-                    <h3>
-                        Transformation:
-                    </h3>
-                    <label>
-                        Current Vector = M x Previous Vector
-                    </label>
-                    <p id="matrixDisplay">
-                    </p>
-                </div>
-                <input id="showCommute" type="button" value="Commute?">
-            </div>
-        </div>
+
     </div>
 </div>
 

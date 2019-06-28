@@ -9,7 +9,7 @@ var radius = 2*Math.sqrt(3);
 var sphere = new Sphere(radius).gObject(cyan, white);
 var axes = createAxes(4);
 var layout = {
-    width: 450, height: 450,
+    autosize: true,
     margin: {l:0, r:0, t:0, b:0},
     hovermode: "closest",
     showlegend: false,
@@ -328,26 +328,9 @@ function displayCurrent(index, idName) {
 
 //Hide/Show - for better interface
 /** It hides [Commute?] interface. */
-function hideCommute() {
-    $('.rotate3D').show();
-    $('.rotateCommute').hide();
-    $('.playButtons').show();
-    $('#showCommute').show();
-    $('#frameSlider').hide();
-    var index = historyIndex % historyLimit;
-    displayCurrent(index, "matrixDisplay");
-    histPlot(index);
-    $("#animate").prop("disabled",false);
-}
+
 /** It shows [Commute?] interface. */
-function showCommute() {
-    $('.rotate3D').hide();
-    $('.rotateCommute').show();
-    $('.playButtons').hide();
-    $('#showCommute').hide();
-    $('#frameSlider').show();
-    commutePlot();
-}
+
 /** It disable undo and reset buttons. */
 function disableUndoReset() {
     $("#undo").prop("disabled",true);
@@ -366,7 +349,8 @@ function initPlot() {
     historyIndex = 0;
     historyCount = 0;
     displayCurrent(0, "matrixDisplay");
-    hideCommute();
+    displayCurrent(0, "matrixDisplay2");
+
     histPlot(0);
     $("#animate").prop("disabled",false);
     disableUndoReset();
@@ -414,13 +398,7 @@ function animateTransformation(frames, playID) {
     return;
 }
 /** Master Play button */
-function playAnimation() {//Master PLAY
-    if ($('ul.tab-nav li a.active').attr('href') === "#rotate") {
-        animateRotate();
-    } else if($('ul.tab-nav li a.active').attr('href') === "#reflect") {
-        animateReflect();
-    }
-}
+
 
 /** It creates rotations animation frames */
 function animateRotate() {
@@ -460,7 +438,7 @@ function animateReflect() {
         frames = computeFrames(scaleZ, 1, -1, historyVectors[index], frameSize, false);
     }
 
-    updateMatrixDisplay(displayReflectionMatrix(plane), "matrixDisplay");
+    updateMatrixDisplay(displayReflectionMatrix(plane), "matrixDisplay2");
     planePlot(plane);
     enableUndoReset();
     animateTransformation(frames, "#animate");
@@ -535,6 +513,7 @@ function undo(){
         disableUndoReset();
     }
     displayCurrent(index, "matrixDisplay");
+    displayCurrent(index, "matrixDisplay2");
     histPlot(index);
     return;
 }
@@ -568,29 +547,16 @@ function main() {
     });
 
     //Tab
-    $(function() {
-        $('ul.tab-nav li a.button').click(function() {
-            var href = $(this).attr('href');
-            $('li a.active.button', $(this).parent().parent()).removeClass('active');
-            $(this).addClass('active');
-            $('.tab-pane.active', $(href).parent()).removeClass('active');
-            $(href).addClass('active');
-            hideCommute();
-            if (href === "#rotate") {
-                $('#showCommute').show();
-            } else {
-                $('#showCommute').hide();
-            }
-            return false;
-        });
-    });
+
 
     $("input[type=submit]").click(function () {
         //log(this);
         var idName = $(this).attr("id");
-        if (idName === "animate") {
-            playAnimation();
-        } else if (idName === "commuteAnimate"){
+        if (idName === "animate1") {
+            animateRotate();
+        }if (idName === "animate2") {
+            animateReflect();
+        }else if (idName === "commuteAnimate"){
             startAnimation();
         }
     });
@@ -601,10 +567,6 @@ function main() {
             undo();
         } else if (idName === "reset"){
             initPlot();
-        } else if (idName === "showCommute"){
-            showCommute();
-        } else if (idName === "hideCommute"){
-            hideCommute();
         }
     });
 
