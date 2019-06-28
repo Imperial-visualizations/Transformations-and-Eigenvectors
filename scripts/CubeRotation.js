@@ -64,6 +64,71 @@ function skewZaxis(point, theta) {
     return pointRot;
     }
 
+
+
+//6 new skew matrices!!!!!
+function skewXaxisRelYaxis(point, theta) {
+    var pointVec = point;
+    var M = [[1, 0, 0],
+                   [Math.tan(theta), 1, 0],
+                   [0, 0 ,1]
+                  ];
+    var pointRot = math.multiply(M,pointVec);
+    return pointRot;
+    }
+
+function skewXaxisRelZaxis(point, theta) {
+    var pointVec = point;
+    var M = [[1, 0, 0],
+                   [0, 1, 0],
+                   [Math.tan(theta), 0 ,1]
+                  ];
+    var pointRot = math.multiply(M,pointVec);
+    return pointRot;
+    }
+
+function skewYaxisRelXaxis(point, theta) {
+    var pointVec = point;
+    var M = [[1, Math.tan(theta), 0],
+                   [0, 1, 0],
+                   [0, 0 ,1]
+                  ];
+    var pointRot = math.multiply(M,pointVec);
+    return pointRot;
+    }
+
+function skewYaxisRelZaxis(point, theta) {
+    var pointVec = point;
+    var M = [[1, 0, 0],
+                   [0, 1, 0],
+                   [0, Math.tan(theta) ,1]
+                  ];
+    var pointRot = math.multiply(M,pointVec);
+    return pointRot;
+    }
+
+function skewZaxisRelXaxis(point, theta) {
+    var pointVec = point;
+    var M = [[1, 0, Math.tan(theta)],
+                   [0, 1, 0],
+                   [0, 0 ,1]
+                  ];
+    var pointRot = math.multiply(M,pointVec);
+    return pointRot;
+    }
+
+function skewZaxisRelYaxis(point, theta) {
+    var pointVec = point;
+    var M = [[1, 0, 0],
+                   [0, 1, Math.tan(theta)],
+                   [0, 0 ,1]
+                  ];
+    var pointRot = math.multiply(M,pointVec);
+    return pointRot;
+    }
+
+
+
 //This defines the scale matrices (also are called shear matrices) about the axes, takes in a point and an scale, and return a transformed point
 function scaleallaxis(point, scale) {
     var pointVec = point;
@@ -160,6 +225,16 @@ function master(transformation, initalparam, finalparam,xinit1,yinit1,zinit1){
 
 //This is to make the graph reset
 function graphReset(where){
+    rotateTable.rows[0].cells[0].innerHTML = 1
+    rotateTable.rows[0].cells[1].innerHTML = 0
+    rotateTable.rows[0].cells[2].innerHTML = 0
+    rotateTable.rows[1].cells[0].innerHTML = 0
+    rotateTable.rows[1].cells[1].innerHTML = 1
+    rotateTable.rows[1].cells[2].innerHTML = 0
+    rotateTable.rows[2].cells[0].innerHTML = 0
+    rotateTable.rows[2].cells[1].innerHTML = 0
+    rotateTable.rows[2].cells[2].innerHTML = 1
+
     xrot1 = [-1., -1., 1., 1., -1., -1., 1., 1.];
     yrot1 = [-1., 1., 1., -1., -1., 1., 1., -1.];
     zrot1 = [-1., -1., -1., -1., 1., 1., 1., 1.];
@@ -250,7 +325,7 @@ function Rotate(){
         },mode: 'immediate'},layout);
 
 
-    } else {
+    } else if (axisSelector === "RotZaxis") {
         framesnew = master(roZaxis,0,angle,xrot1,yrot1,zrot1)
 
         Plotly.animate('graph', framesnew, {transition: {
@@ -263,51 +338,8 @@ function Rotate(){
 
     }
 
-
-
 }
-function Skew(){
-    axisSelector = document.getElementById("SkewSelect").value
-    angleSelector = document.getElementById("SkewSlider").value
-    angle = angleSelector*Math.PI
-    if (axisSelector ==="SkewXaxis") {
-        framesnew = master(skewXaxis,0,angle,xrot1,yrot1,zrot1)
 
-        Plotly.animate('graph', framesnew, {transition: {
-          duration: 100,
-          easing: 'linear'
-        },frame: {
-          duration: 100,
-          redraw: false,
-        },mode: 'immediate'},layout);
-        Plotly.animate('graph', framesnew2, {transition: {
-          duration: 100,
-          easing: 'linear'
-        },frame: {
-          duration: 100,
-          redraw: false,
-        },mode: 'immediate'},layout);
-    } else if (axisSelector === "SkewYaxis") {
-        framesnew = master(skewYaxis,0,angle,xrot1,yrot1,zrot1)
-        Plotly.animate('graph', framesnew, {transition: {
-          duration: 100,
-          easing: 'linear'
-        },frame: {
-          duration: 100,
-          redraw: false,
-        },mode: 'immediate'},layout);
-
-    } else {
-        framesnew = master(skewZaxis,0,angle,xrot1,yrot1,zrot1)
-        Plotly.animate('graph', framesnew, {transition: {
-          duration: 100,
-          easing: 'linear'
-        },frame: {
-          duration: 100,
-          redraw: false,
-        },mode: 'immediate'},layout);
-    }
-}
 function Scale(){
     axisSelector = document.getElementById("ScaleSelect").value
     scaleSelector = document.getElementById("ScaleSlider").value
@@ -342,27 +374,17 @@ function Scale(){
           duration: 100,
           redraw: false,
         },mode: 'immediate'},layout);
-    }  else {
-        framesnew = master(scaleallaxis ,1,scaleSelector,xrot1,yrot1,zrot1)
-
-
-
-        Plotly.animate('graph', framesnew, {transition: {
-          duration: 100,
-          easing: 'linear'
-        },frame: {
-          duration: 100,
-          redraw: false,
-        },mode: 'immediate'},layout);
-
     }
 }
+
 function Skew(){
     axisSelector = document.getElementById("SkewSelect").value
     angleSelector = document.getElementById("SkewSlider").value
+    relSelector = document.getElementById("SkewRelative").value
     angle = angleSelector*Math.PI
     if (axisSelector ==="SkewXaxis") {
-        framesnew = master(skewXaxis,0,angle,xrot1,yrot1,zrot1)
+        if (relSelector ==="Y"){
+        framesnew = master(skewXaxisRelYaxis,0,angle,xrot1,yrot1,zrot1)
         Plotly.animate('graph', framesnew, {transition: {
           duration: 100,
           easing: 'linear'
@@ -370,18 +392,10 @@ function Skew(){
           duration: 100,
           redraw: false,
         },mode: 'immediate'},layout);
-    } else if (axisSelector === "SkewYaxis") {
-        framesnew = master(skewYaxis,0,angle,xrot1,yrot1,zrot1)
-        Plotly.animate('graph', framesnew, {transition: {
-          duration: 100,
-          easing: 'linear'
-        },frame: {
-          duration: 100,
-          redraw: false,
-        },mode: 'immediate'},layout);
+        }
 
-    } else {
-        framesnew = master(skewZaxis,0,angle,xrot1,yrot1,zrot1)
+        else if (relSelector ==="Z"){
+        framesnew = master(skewXaxisRelZaxis,0,angle,xrot1,yrot1,zrot1)
         Plotly.animate('graph', framesnew, {transition: {
           duration: 100,
           easing: 'linear'
@@ -389,13 +403,176 @@ function Skew(){
           duration: 100,
           redraw: false,
         },mode: 'immediate'},layout);
+        }
+    } else if (axisSelector === "SkewYaxis") {
+        if (relSelector ==="X"){
+        framesnew = master(skewYaxisRelXaxis,0,angle,xrot1,yrot1,zrot1)
+        Plotly.animate('graph', framesnew, {transition: {
+          duration: 100,
+          easing: 'linear'
+        },frame: {
+          duration: 100,
+          redraw: false,
+        },mode: 'immediate'},layout);
+        }
+
+        else if (relSelector ==="Z"){
+        framesnew = master(skewYaxisRelZaxis,0,angle,xrot1,yrot1,zrot1)
+        Plotly.animate('graph', framesnew, {transition: {
+          duration: 100,
+          easing: 'linear'
+        },frame: {
+          duration: 100,
+          redraw: false,
+        },mode: 'immediate'},layout);
+        }
+
+    } else if (axisSelector === "SkewZaxis") {
+                if (relSelector ==="X"){
+        framesnew = master(skewZaxisRelXaxis,0,angle,xrot1,yrot1,zrot1)
+        Plotly.animate('graph', framesnew, {transition: {
+          duration: 100,
+          easing: 'linear'
+        },frame: {
+          duration: 100,
+          redraw: false,
+        },mode: 'immediate'},layout);
+        }
+
+        else if (relSelector ==="Y"){
+        framesnew = master(skewZaxisRelYaxis,0,angle,xrot1,yrot1,zrot1)
+        Plotly.animate('graph', framesnew, {transition: {
+          duration: 100,
+          easing: 'linear'
+        },frame: {
+          duration: 100,
+          redraw: false,
+        },mode: 'immediate'},layout);
+        }
     }
 }
-
 
 
 //These functions are to display dynamically changing transformation matrices
 function rotatematrix(){
+    axisSelector = document.getElementById("RotateSelect").value
+    angleSelector = document.getElementById("RotateSlider").value
+    angle = angleSelector*Math.PI
+
+    if (axisSelector ==="RotXaxis") {
+    rotateTable.rows[1].cells[0].innerHTML =+ Math.round((rotateTable.rows[1].cells[0].innerHTML*Math.cos(angle) - rotateTable.rows[2].cells[0].innerHTML*Math.sin(angle))*100)/100 //0
+    rotateTable.rows[1].cells[1].innerHTML =+ Math.round((rotateTable.rows[1].cells[1].innerHTML*Math.cos(angle) - rotateTable.rows[2].cells[1].innerHTML*Math.sin(angle))*100)/100 //"cos(" + angleSelector + "π)"
+    rotateTable.rows[1].cells[2].innerHTML =+ Math.round((rotateTable.rows[1].cells[2].innerHTML*Math.cos(angle) - rotateTable.rows[2].cells[2].innerHTML*Math.sin(angle))*100)/100 //"-sin(" + angleSelector + "π)"
+    rotateTable.rows[2].cells[0].innerHTML =+ Math.round((rotateTable.rows[2].cells[0].innerHTML*Math.cos(angle) + rotateTable.rows[1].cells[0].innerHTML*Math.sin(angle))*100)/100 //0
+    rotateTable.rows[2].cells[1].innerHTML =+ Math.round((rotateTable.rows[2].cells[1].innerHTML*Math.cos(angle) + rotateTable.rows[1].cells[1].innerHTML*Math.sin(angle))*100)/100 //"sin(" + angleSelector + "π)"
+    rotateTable.rows[2].cells[2].innerHTML =+ Math.round((rotateTable.rows[2].cells[2].innerHTML*Math.cos(angle) + rotateTable.rows[1].cells[2].innerHTML*Math.sin(angle))*100)/100//"cos(" + angleSelector + "π)"
+
+
+
+    } else if (axisSelector === "RotYaxis") {
+    rotateTable.rows[0].cells[0].innerHTML =+ Math.round((rotateTable.rows[0].cells[0].innerHTML*Math.cos(angle) + rotateTable.rows[2].cells[0].innerHTML*Math.sin(angle))*100)/100//"cos(" + angleSelector + "π)"
+    rotateTable.rows[0].cells[1].innerHTML =+ Math.round((rotateTable.rows[0].cells[1].innerHTML*Math.cos(angle) + rotateTable.rows[2].cells[0].innerHTML*Math.sin(angle))*100)/100//0
+    rotateTable.rows[0].cells[2].innerHTML =+ Math.round((rotateTable.rows[0].cells[2].innerHTML*Math.cos(angle) + rotateTable.rows[2].cells[0].innerHTML*Math.sin(angle))*100)/100//"sin(" + angleSelector + "π)"
+    rotateTable.rows[2].cells[0].innerHTML =+ Math.round((rotateTable.rows[2].cells[0].innerHTML*Math.cos(angle) - rotateTable.rows[0].cells[0].innerHTML*Math.sin(angle))*100)/100//"-sin(" + angleSelector + "π)"
+    rotateTable.rows[2].cells[1].innerHTML =+ Math.round((rotateTable.rows[2].cells[1].innerHTML*Math.cos(angle) - rotateTable.rows[0].cells[1].innerHTML*Math.sin(angle))*100)/100//0
+    rotateTable.rows[2].cells[2].innerHTML =+ Math.round((rotateTable.rows[2].cells[2].innerHTML*Math.cos(angle) - rotateTable.rows[0].cells[2].innerHTML*Math.sin(angle))*100)/100//"cos(" + angleSelector + "π)"
+
+    } else if (axisSelector === "RotZaxis") {
+    rotateTable.rows[0].cells[0].innerHTML =+ Math.round((rotateTable.rows[0].cells[0].innerHTML*Math.cos(angle) - rotateTable.rows[1].cells[0].innerHTML*Math.sin(angle))*100)/100//"cos(" + angleSelector + "π)"
+    rotateTable.rows[0].cells[1].innerHTML =+ Math.round((rotateTable.rows[0].cells[1].innerHTML*Math.cos(angle) - rotateTable.rows[1].cells[1].innerHTML*Math.sin(angle))*100)/100//"-sin(" + angleSelector + "π)"
+    rotateTable.rows[0].cells[2].innerHTML =+ Math.round((rotateTable.rows[0].cells[2].innerHTML*Math.cos(angle) - rotateTable.rows[1].cells[2].innerHTML*Math.sin(angle))*100)/100//0
+    rotateTable.rows[1].cells[0].innerHTML =+ Math.round((rotateTable.rows[1].cells[0].innerHTML*Math.cos(angle) + rotateTable.rows[0].cells[0].innerHTML*Math.sin(angle))*100)/100//"sin(" + angleSelector + "π)"
+    rotateTable.rows[1].cells[1].innerHTML =+ Math.round((rotateTable.rows[1].cells[1].innerHTML*Math.cos(angle) + rotateTable.rows[0].cells[1].innerHTML*Math.sin(angle))*100)/100//"cos(" + angleSelector + "π)"
+    rotateTable.rows[1].cells[2].innerHTML =+ Math.round((rotateTable.rows[1].cells[2].innerHTML*Math.cos(angle) + rotateTable.rows[0].cells[2].innerHTML*Math.sin(angle))*100)/100//0
+
+    }
+
+}
+function skewmatrix(){
+    axisSelector = document.getElementById("SkewSelect").value
+    angleSelector = document.getElementById("SkewSlider").value
+    skewSelector = document.getElementById("SkewRelative").value
+    angle = angleSelector*Math.PI
+
+    if (axisSelector ==="SkewXaxis") {
+        if (skewSelector === "Y"){
+          rotateTable.rows[1].cells[0].innerHTML =+ Math.round((rotateTable.rows[1].cells[0].innerHTML*1.0 + rotateTable.rows[0].cells[0].innerHTML*Math.tan(angle))*100)/100 //1
+          rotateTable.rows[1].cells[1].innerHTML =+ Math.round((rotateTable.rows[1].cells[1].innerHTML*1.0 + rotateTable.rows[0].cells[1].innerHTML*Math.tan(angle))*100)/100//"tan(" + angleSelector + "π)"
+          rotateTable.rows[1].cells[2].innerHTML =+ Math.round((rotateTable.rows[1].cells[2].innerHTML*1.0 + rotateTable.rows[0].cells[2].innerHTML*Math.tan(angle))*100)/100//0
+        }
+
+        else if(skewSelector === "Z"){
+          rotateTable.rows[2].cells[0].innerHTML =+ Math.round((rotateTable.rows[2].cells[0].innerHTML*1.0 + rotateTable.rows[0].cells[0].innerHTML*Math.tan(angle))*100)/100 //1
+          rotateTable.rows[2].cells[1].innerHTML =+ Math.round((rotateTable.rows[2].cells[1].innerHTML*1.0 + rotateTable.rows[0].cells[1].innerHTML*Math.tan(angle))*100)/100//"tan(" + angleSelector + "π)"
+          rotateTable.rows[2].cells[2].innerHTML =+ Math.round((rotateTable.rows[2].cells[2].innerHTML*1.0 + rotateTable.rows[0].cells[2].innerHTML*Math.tan(angle))*100)/100//0
+        }
+    }
+
+    else if (axisSelector ==="SkewYaxis") {
+        if (skewSelector === "X"){
+          rotateTable.rows[0].cells[0].innerHTML =+ Math.round((rotateTable.rows[0].cells[0].innerHTML*1.0 + rotateTable.rows[1].cells[0].innerHTML*Math.tan(angle))*100)/100 //1
+          rotateTable.rows[0].cells[1].innerHTML =+ Math.round((rotateTable.rows[0].cells[1].innerHTML*1.0 + rotateTable.rows[1].cells[1].innerHTML*Math.tan(angle))*100)/100//"tan(" + angleSelector + "π)"
+          rotateTable.rows[0].cells[2].innerHTML =+ Math.round((rotateTable.rows[0].cells[2].innerHTML*1.0 + rotateTable.rows[1].cells[2].innerHTML*Math.tan(angle))*100)/100//0
+         }
+
+        else if(skewSelector === "Z"){
+          rotateTable.rows[2].cells[0].innerHTML =+ Math.round((rotateTable.rows[2].cells[0].innerHTML*1.0 + rotateTable.rows[1].cells[0].innerHTML*Math.tan(angle))*100)/100 //1
+          rotateTable.rows[2].cells[1].innerHTML =+ Math.round((rotateTable.rows[2].cells[1].innerHTML*1.0 + rotateTable.rows[1].cells[1].innerHTML*Math.tan(angle))*100)/100//"tan(" + angleSelector + "π)"
+          rotateTable.rows[2].cells[2].innerHTML =+ Math.round((rotateTable.rows[2].cells[2].innerHTML*1.0 + rotateTable.rows[1].cells[2].innerHTML*Math.tan(angle))*100)/100//0
+        }
+    }
+
+    else if (axisSelector ==="SkewZaxis") {
+        if (skewSelector === "X"){
+          rotateTable.rows[0].cells[0].innerHTML =+ Math.round((rotateTable.rows[0].cells[0].innerHTML*1.0 + rotateTable.rows[2].cells[0].innerHTML*Math.tan(angle))*100)/100 //1
+          rotateTable.rows[0].cells[1].innerHTML =+ Math.round((rotateTable.rows[0].cells[1].innerHTML*1.0 + rotateTable.rows[2].cells[1].innerHTML*Math.tan(angle))*100)/100//"tan(" + angleSelector + "π)"
+          rotateTable.rows[0].cells[2].innerHTML =+ Math.round((rotateTable.rows[0].cells[2].innerHTML*1.0 + rotateTable.rows[2].cells[2].innerHTML*Math.tan(angle))*100)/100//0
+         }
+
+        else if(skewSelector === "Y"){
+          rotateTable.rows[1].cells[0].innerHTML =+ Math.round((rotateTable.rows[1].cells[0].innerHTML*1.0 + rotateTable.rows[2].cells[0].innerHTML*Math.tan(angle))*100)/100 //1
+          rotateTable.rows[1].cells[1].innerHTML =+ Math.round((rotateTable.rows[1].cells[1].innerHTML*1.0 + rotateTable.rows[2].cells[1].innerHTML*Math.tan(angle))*100)/100//"tan(" + angleSelector + "π)"
+          rotateTable.rows[1].cells[2].innerHTML =+ Math.round((rotateTable.rows[1].cells[2].innerHTML*1.0 + rotateTable.rows[2].cells[2].innerHTML*Math.tan(angle))*100)/100//0
+        }
+    }
+
+
+}
+function scalematrix(){
+    axisSelector = document.getElementById("ScaleSelect").value
+    scaleSelector = document.getElementById("ScaleSlider").value
+    angle = angleSelector*Math.PI
+
+    if (axisSelector ==="ScaleXaxis") {
+    rotateTable.rows[0].cells[0].innerHTML = Math.round((rotateTable.rows[0].cells[0].innerHTML*1.0 + rotateTable.rows[0].cells[0].innerHTML*(scaleSelector-1))*100)/100 //scaleSelector
+    rotateTable.rows[0].cells[1].innerHTML = Math.round((rotateTable.rows[0].cells[1].innerHTML*1.0 + rotateTable.rows[0].cells[1].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[0].cells[2].innerHTML = Math.round((rotateTable.rows[0].cells[2].innerHTML*1.0 + rotateTable.rows[0].cells[2].innerHTML*(scaleSelector-1))*100)/100//0
+
+    } else if (axisSelector === "ScaleYaxis") {
+    rotateTable.rows[1].cells[0].innerHTML = Math.round((rotateTable.rows[1].cells[0].innerHTML*1.0 + rotateTable.rows[1].cells[0].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[1].cells[1].innerHTML = Math.round((rotateTable.rows[1].cells[1].innerHTML*1.0 + rotateTable.rows[1].cells[1].innerHTML*(scaleSelector-1))*100)/100//scaleSelector
+    rotateTable.rows[1].cells[2].innerHTML = Math.round((rotateTable.rows[1].cells[2].innerHTML*1.0 + rotateTable.rows[1].cells[2].innerHTML*(scaleSelector-1))*100)/100//0
+
+    } else if (axisSelector === "ScaleZaxis") {
+    rotateTable.rows[2].cells[0].innerHTML = Math.round((rotateTable.rows[2].cells[0].innerHTML*1.0 + rotateTable.rows[2].cells[0].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[2].cells[1].innerHTML = Math.round((rotateTable.rows[2].cells[1].innerHTML*1.0 + rotateTable.rows[2].cells[1].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[2].cells[2].innerHTML = Math.round((rotateTable.rows[2].cells[2].innerHTML*1.0 + rotateTable.rows[2].cells[2].innerHTML*(scaleSelector-1))*100)/100//scaleSelector
+
+    } else if (axisSelector === "ScaleAllaxis") {
+    rotateTable.rows[0].cells[0].innerHTML = Math.round((rotateTable.rows[0].cells[0].innerHTML*1.0 + rotateTable.rows[0].cells[0].innerHTML*(scaleSelector-1))*100)/100//scaleSelector
+    rotateTable.rows[0].cells[1].innerHTML = Math.round((rotateTable.rows[0].cells[1].innerHTML*1.0 + rotateTable.rows[0].cells[1].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[0].cells[2].innerHTML = Math.round((rotateTable.rows[0].cells[2].innerHTML*1.0 + rotateTable.rows[0].cells[2].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[1].cells[0].innerHTML = Math.round((rotateTable.rows[1].cells[0].innerHTML*1.0 + rotateTable.rows[1].cells[0].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[1].cells[1].innerHTML = Math.round((rotateTable.rows[1].cells[1].innerHTML*1.0 + rotateTable.rows[1].cells[1].innerHTML*(scaleSelector-1))*100)/100//scaleSelector
+    rotateTable.rows[1].cells[2].innerHTML = Math.round((rotateTable.rows[1].cells[2].innerHTML*1.0 + rotateTable.rows[1].cells[2].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[2].cells[0].innerHTML = Math.round((rotateTable.rows[2].cells[0].innerHTML*1.0 + rotateTable.rows[2].cells[0].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[2].cells[1].innerHTML = Math.round((rotateTable.rows[2].cells[1].innerHTML*1.0 + rotateTable.rows[2].cells[1].innerHTML*(scaleSelector-1))*100)/100//0
+    rotateTable.rows[2].cells[2].innerHTML = Math.round((rotateTable.rows[2].cells[2].innerHTML*1.0 + rotateTable.rows[2].cells[2].innerHTML*(scaleSelector-1))*100)/100//scaleSelector
+    }
+}
+
+
+function rotatematrix1(){
 
     axisSelector = document.getElementById("RotateSelect").value
     angleSelector = document.getElementById("RotateSlider").value
@@ -403,91 +580,130 @@ function rotatematrix(){
 
 
     if (axisSelector ==="RotXaxis") {
-    rotateTable.rows[0].cells[0].innerHTML = 1
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
-    rotateTable.rows[1].cells[2].innerHTML = "-sin(" + angleSelector + "π)"
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = "sin(" + angleSelector + "π)"
-    rotateTable.rows[2].cells[2].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[0].innerHTML = 1
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[0].cells[2].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[2].innerHTML = "-sin(" + angleSelector + "π)"
+    rotateTable1.rows[2].cells[0].innerHTML = 0
+    rotateTable1.rows[2].cells[1].innerHTML = "sin(" + angleSelector + "π)"
+    rotateTable1.rows[2].cells[2].innerHTML = "cos(" + angleSelector + "π)"
 
 
 
     } else if (axisSelector === "RotYaxis") {
-    rotateTable.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = "sin(" + angleSelector + "π)"
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = 1
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = "-sin(" + angleSelector + "π)"
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[0].cells[2].innerHTML = "sin(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = 1
+    rotateTable1.rows[1].cells[2].innerHTML = 0
+    rotateTable1.rows[2].cells[0].innerHTML = "-sin(" + angleSelector + "π)"
+    rotateTable1.rows[2].cells[1].innerHTML = 0
+    rotateTable1.rows[2].cells[2].innerHTML = "cos(" + angleSelector + "π)"
 
-    } else {
-    rotateTable.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
-    rotateTable.rows[0].cells[1].innerHTML = "-sin(" + angleSelector + "π)"
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = "sin(" + angleSelector + "π)"
-    rotateTable.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = 1
+    } else if (axisSelector === "RotZaxis"){
+    rotateTable1.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[1].innerHTML = "-sin(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[2].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = "sin(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[2].innerHTML = 0
+    rotateTable1.rows[2].cells[0].innerHTML = 0
+    rotateTable1.rows[2].cells[1].innerHTML = 0
+    rotateTable1.rows[2].cells[2].innerHTML = 1
 
     }
 
 }
-function skewmatrix(){
-    angle = angleSelector*Math.PI
-    axisSelector = document.getElementById("RotateSelect").value
-    angleSelector = document.getElementById("RotateSlider").value
-
+function skewmatrix1(){
     axisSelector = document.getElementById("SkewSelect").value
     angleSelector = document.getElementById("SkewSlider").value
+    skewSelector = document.getElementById("SkewRelative").value
     angle = angleSelector*Math.PI
+
     if (axisSelector ==="SkewXaxis") {
-    rotateTable.rows[0].cells[0].innerHTML = 1
-    rotateTable.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = 1
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = 1
+        if (skewSelector === "Y"){
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[0].cells[2].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+          rotateTable1.rows[1].cells[2].innerHTML = 0
+          rotateTable1.rows[2].cells[0].innerHTML = 0
+          rotateTable1.rows[2].cells[1].innerHTML = 0
+          rotateTable1.rows[2].cells[2].innerHTML = 1
+        }
 
+        else if(skewSelector === "Z"){
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[0].cells[2].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+          rotateTable1.rows[1].cells[2].innerHTML = 0
+          rotateTable1.rows[2].cells[0].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[2].cells[1].innerHTML = 0
+          rotateTable1.rows[2].cells[2].innerHTML = 1
+        }
+    }
 
+    else if (axisSelector ==="SkewYaxis") {
+        if (skewSelector === "X"){
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[0].cells[2].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+          rotateTable1.rows[1].cells[2].innerHTML = 0
+          rotateTable1.rows[2].cells[0].innerHTML = 0
+          rotateTable1.rows[2].cells[1].innerHTML = 0
+          rotateTable1.rows[2].cells[2].innerHTML = 1
+         }
 
-    } else if (axisSelector === "SkewYAxis") {
-    rotateTable.rows[0].cells[0].innerHTML = 1
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
-    rotateTable.rows[1].cells[1].innerHTML = 1
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = 1
+        else if(skewSelector === "Z"){
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[0].cells[2].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+          rotateTable1.rows[1].cells[2].innerHTML = 0
+          rotateTable1.rows[2].cells[0].innerHTML = 0
+          rotateTable1.rows[2].cells[1].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[2].cells[2].innerHTML = 1
+        }
+    }
 
-    } else {
-    rotateTable.rows[0].cells[0].innerHTML = 1
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 1
-    rotateTable.rows[1].cells[1].innerHTML = 0
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 1
-    rotateTable.rows[2].cells[1].innerHTML = "tan(" + angleSelector + "π)"
-    rotateTable.rows[2].cells[2].innerHTML = 0
+    else if (axisSelector ==="SkewZaxis") {
+        if (skewSelector === "X"){
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[0].cells[2].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+          rotateTable1.rows[1].cells[2].innerHTML = 0
+          rotateTable1.rows[2].cells[0].innerHTML = 0
+          rotateTable1.rows[2].cells[1].innerHTML = 0
+          rotateTable1.rows[2].cells[2].innerHTML = 1
+         }
 
+        else if(skewSelector === "Y"){
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[0].cells[2].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+          rotateTable1.rows[1].cells[2].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[2].cells[0].innerHTML = 0
+          rotateTable1.rows[2].cells[1].innerHTML = 0
+          rotateTable1.rows[2].cells[2].innerHTML = 1
+        }
 
     }
 
 }
-function scalematrix(){
+function scalematrix1(){
     angle = angleSelector*Math.PI
     axisSelector = document.getElementById("RotateSelect").value
     angleSelector = document.getElementById("RotateSlider").value
@@ -497,50 +713,50 @@ function scalematrix(){
     axisSelector = document.getElementById("ScaleSelect").value
     scaleSelector = document.getElementById("ScaleSlider").value
     if (axisSelector ==="ScaleXaxis") {
-    rotateTable.rows[0].cells[0].innerHTML = scaleSelector
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = 1
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = 1
+    rotateTable1.rows[0].cells[0].innerHTML = scaleSelector
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[0].cells[2].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = 1
+    rotateTable1.rows[1].cells[2].innerHTML = 0
+    rotateTable1.rows[2].cells[0].innerHTML = 0
+    rotateTable1.rows[2].cells[1].innerHTML = 0
+    rotateTable1.rows[2].cells[2].innerHTML = 1
 
     } else if (axisSelector === "ScaleYaxis") {
-    rotateTable.rows[0].cells[0].innerHTML = 1
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = scaleSelector
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = 1
+    rotateTable1.rows[0].cells[0].innerHTML = 1
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[0].cells[2].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = scaleSelector
+    rotateTable1.rows[1].cells[2].innerHTML = 0
+    rotateTable1.rows[2].cells[0].innerHTML = 0
+    rotateTable1.rows[2].cells[1].innerHTML = 0
+    rotateTable1.rows[2].cells[2].innerHTML = 1
 
 
 
     } else if (axisSelector === "ScaleZaxis") {
-    rotateTable.rows[0].cells[0].innerHTML = 1
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = 1
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = scaleSelector
+    rotateTable1.rows[0].cells[0].innerHTML = 1
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[0].cells[2].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = 1
+    rotateTable1.rows[1].cells[2].innerHTML = 0
+    rotateTable1.rows[2].cells[0].innerHTML = 0
+    rotateTable1.rows[2].cells[1].innerHTML = 0
+    rotateTable1.rows[2].cells[2].innerHTML = scaleSelector
 
-    }  else {
-    rotateTable.rows[0].cells[0].innerHTML = scaleSelector
-    rotateTable.rows[0].cells[1].innerHTML = 0
-    rotateTable.rows[0].cells[2].innerHTML = 0
-    rotateTable.rows[1].cells[0].innerHTML = 0
-    rotateTable.rows[1].cells[1].innerHTML = scaleSelector
-    rotateTable.rows[1].cells[2].innerHTML = 0
-    rotateTable.rows[2].cells[0].innerHTML = 0
-    rotateTable.rows[2].cells[1].innerHTML = 0
-    rotateTable.rows[2].cells[2].innerHTML = scaleSelector
+    }  else if (axisSelector === "ScaleAllaxis") {
+    rotateTable1.rows[0].cells[0].innerHTML = scaleSelector
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[0].cells[2].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = scaleSelector
+    rotateTable1.rows[1].cells[2].innerHTML = 0
+    rotateTable1.rows[2].cells[0].innerHTML = 0
+    rotateTable1.rows[2].cells[1].innerHTML = 0
+    rotateTable1.rows[2].cells[2].innerHTML = scaleSelector
 
 
 
