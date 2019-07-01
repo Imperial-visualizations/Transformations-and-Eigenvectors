@@ -46,7 +46,6 @@ $(document).ready(function () {
         } else {
             lineLength = eigenvalue1;
         }
-        console.log(lineLength*1.2*rho/10)
 
         //defining input line:
         if (lineLength < rho) {
