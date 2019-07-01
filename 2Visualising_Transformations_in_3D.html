@@ -38,10 +38,268 @@
 
 <div class="container">
     <div class="row">
+        <div class="three columns">
+            <h6>
+                Rotate
+            </h6>
+            <div>
+               <p>
+               <strong>
+                   Select Axis:
+                   </strong>
+                   </p>
+                   <select id="RotateSelect">
+                       <option value =""></option>
+                    <option value="RotXaxis">
+                        X Axis
+                    </option>
+                    <option value="RotYaxis">
+                        Y Axis
+                    </option>
+                    <option value="RotZaxis">
+                        Z Axis
+                    </option>
+                    </select>
+            </div>
+            <div class="SliderRot">
+                 <label class="sliderTitle">
+                     Select Angle:
+                     <span data-unit="π radian" id="RotateSliderDisplay">
+         0π radian
+        </span>
+                        </label>
+                        <label class="slider">
+                            <input class="inputs" id="RotateSlider" max="2" min="-2" onchange="rotatematrix1()"
+                                   step="0.1" type="range" value="0">
+                            <span class="sliderMin">
+         -2π
+        </span>
+                            <span class="sliderMax">
+         2π
+        </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <button onclick="Rotate();rotatematrix()">
+                            Go!
+                        </button>
+                    </div>
+
+
+                    <h6>
+                        Skew
+                    </h6>
+                    <div>
+                        <p>
+                            <strong>
+                                Select Axis: &nbsp; Relative to:
+                            </strong>
+                        </p>
+                        <script type="text/javascript">
+                            function populate(s1,s2){
+                                var s1 = document.getElementById(s1);
+                                var s2 = document.getElementById(s2);
+                                s2.innerHTML = "";
+                                if(s1.value === "SkewXaxis"){
+                                    var optionArray = ["|","Y|Y Axis","Z|Z Axis"];
+                                 } else if(s1.value === "SkewYaxis"){
+                                        var optionArray = ["|","X|X Axis","Z|Z Axis"];
+                                 } else if(s1.value === "SkewZaxis"){
+                                    var optionArray = ["|","X|X Axis","Y|Y Axis"];
+                                 }
+                                for(var option in optionArray){
+                                    var pair = optionArray[option].split("|");
+                                    var newOption = document.createElement("option");
+                                    newOption.value = pair[0];
+                                    newOption.innerHTML = pair[1];
+                                    s2.options.add(newOption);
+                                }
+                            }
+
+                        </script>
+                        <select id="SkewSelect" name = "SkewSelect" onchange ="populate('SkewSelect','SkewRelative')">
+                            <option value =""></option>
+                            <option value="SkewXaxis">
+                                X Axis
+                            </option>
+                            <option value="SkewYaxis">
+                                Y Axis
+                            </option>
+                            <option value="SkewZaxis">
+                                Z Axis
+                            </option>
+                        </select>
+                        <select id="SkewRelative" name = "SkewRelative">
+                        </select>
+                    </div>
+                    <div class="sliderSkew">
+                        <label class="sliderTitle">
+                            Select Angle:
+                            <span data-unit="π radian" id="SkewSliderDisplay">
+         0π radian
+        </span>
+                        </label>
+                        <label class="Slider">
+                            <input class="inputs" id="SkewSlider" max="0.25" min="0" onchange="skewmatrix1()"
+                                   step="0.025" type="range" value="0">
+                            <span class="sliderMin">
+                                0
+                            </span>
+                            <span class="sliderMax">
+                                π/4
+                            </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <button onclick="Skew();skewmatrix()">
+                            Go!
+                        </button>
+                    </div>
+
+
+
+        </div>
+
+            <div class="three columns">
+                <h6>
+                        Scale
+                    </h6>
+                    <div>
+                        <p>
+                            <strong>
+                                Select Axis:
+                            </strong>
+                        </p>
+                        <select id="ScaleSelect">
+                            <option value =""></option>
+                            <option value="ScaleXaxis">
+                                X Axis
+                            </option>
+                            <option value="ScaleYaxis">
+                                Y Axis
+                            </option>
+                            <option value="ScaleZaxis">
+                                Z Axis
+                            </option>
+                            <option value="ScaleAllaxis">
+                                All Axes
+                            </option>
+                        </select>
+                    </div>
+                    <div class="sliderScale">
+                        <label class="sliderTitle">
+                            Select Scale:
+                            <span data-unit="x" id="ScaleSliderDisplay">
+         1x
+        </span>
+                        </label>
+                        <label class="Slider">
+                            <input class="input" id="ScaleSlider" max="2" min="0.5" step="0.1" onchange="scalematrix1()"
+                                   type="range" value="1">
+                            <span class="sliderMin">
+         0.5
+        </span>
+                            <span class="sliderMax">
+         2
+        </span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <button onclick="Scale();scalematrix()">
+                            Go!
+                        </button>
+                    </div>
+
+            <br>
+                <br>
+                <h6>The transformation matrix.</h6>
+                        <div>
+                        <table class="matrix" id="rotateTable1">
+                            <tbody>
+                            <tr>
+                                <td align="center">
+                                    1
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    1
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    1
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                <h6>The combined transformation matrix.</h6>
+                        <div>
+                        <table class="matrix" id="rotateTable">
+                            <tbody>
+                            <tr>
+                                <td align="center">
+                                    1
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    1
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    1
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        </div>
         <div class="six columns">
-            <h1>
-                3D Transformations
-            </h1>
+
             <div id="graph" class="js-plotly-plot">
                 <div class="plot-container plotly">
                     <div class="svg-container" style="position: relative; width: 450px; height: 450px;">
@@ -200,196 +458,6 @@
             </div>
         </div>
         <br>
-        <div class="three columns">
-            <h6>
-                Rotate
-            </h6>
-            <div>
-               <p>
-               <strong>
-                   Select Axis:
-                   </strong>
-                   </p>
-                   <select id="RotateSelect">
-                    <option value="RotXaxis">
-                        X Axis
-                    </option>
-                    <option value="RotYaxis">
-                        Y Axis
-                    </option>
-                    <option value="RotZaxis">
-                        Z Axis
-                    </option>
-                    </select>
-            </div>
-            <div class="SliderRot">
-                 <label class="sliderTitle">
-                     Select Angle:
-                     <span data-unit="π radian" id="RotateSliderDisplay">
-         0π radian
-        </span>
-                        </label>
-                        <label class="slider">
-                            <input class="inputs" id="RotateSlider" max="2" min="-2" onchange="rotatematrix()"
-                                   step="0.1" type="range" value="0">
-                            <span class="sliderMin">
-         -2π
-        </span>
-                            <span class="sliderMax">
-         2π
-        </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <button onclick="Rotate()">
-                            Go
-                        </button>
-                    </div>
-
-
-                    <h6>
-                        Skew
-                    </h6>
-                    <div>
-                        <p>
-                            <strong>
-                                Select Axis:
-                            </strong>
-                        </p>
-                        <select id="SkewSelect">
-                            <option value="SkewXaxis">
-                                X Axis
-                            </option>
-                            <option value="SkewYaxis">
-                                Y Axis
-                            </option>
-                            <option value="SkewZaxis">
-                                Z Axis
-                            </option>
-                        </select>
-                    </div>
-                    <div class="sliderSkew">
-                        <label class="sliderTitle">
-                            Select Angle:
-                            <span data-unit="π radian" id="SkewSliderDisplay">
-         0π radian
-        </span>
-                        </label>
-                        <label class="Slider">
-                            <input class="inputs" id="SkewSlider" max="0.25" min="0" onchange="skewmatrix()"
-                                   step="0.025" type="range" value="0">
-                            <span class="sliderMin">
-                                0
-                            </span>
-                            <span class="sliderMax">
-                                π/4
-                            </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <button onclick="Skew()">
-                            Go!
-                        </button>
-                    </div>
-
-
-
-        </div>
-
-            <div class="three columns">
-                <h6>
-                        Scale
-                    </h6>
-                    <div>
-                        <p>
-                            <strong>
-                                Select Axis:
-                            </strong>
-                        </p>
-                        <select id="ScaleSelect">
-                            <option value="ScaleXaxis">
-                                X Axis
-                            </option>
-                            <option value="ScaleYaxis">
-                                Y Axis
-                            </option>
-                            <option value="ScaleZaxis">
-                                Z Axis
-                            </option>
-                            <option value="ScaleAllAxis">
-                                All Axes
-                            </option>
-                        </select>
-                    </div>
-                    <div class="sliderScale">
-                        <label class="sliderTitle">
-                            Select Scale:
-                            <span data-unit="x" id="ScaleSliderDisplay">
-         1x
-        </span>
-                        </label>
-                        <label class="Slider">
-                            <input class="input" id="ScaleSlider" max="2" min="0.5" onchange="scalematrix()" step="0.1"
-                                   type="range" value="1">
-                            <span class="sliderMin">
-         0.5
-        </span>
-                            <span class="sliderMax">
-         2
-        </span>
-                        </label>
-                    </div>
-
-                    <div>
-                        <button onclick="Scale()">
-                            Go!
-                        </button>
-                    </div>
-            <br>
-                <br>
-                <h6>This is the transformed matrix.</h6>
-                        <div>
-                        <table class="matrix" id="rotateTable">
-                            <tbody>
-                            <tr>
-                                <td align="center">
-                                    1
-                                </td>
-                                <td align="center">
-                                    0
-                                </td>
-                                <td align="center">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">
-                                    0
-                                </td>
-                                <td align="center">
-                                    1
-                                </td>
-                                <td align="center">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">
-                                    0
-                                </td>
-                                <td align="center">
-                                    0
-                                </td>
-                                <td align="center">
-                                    1
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-        </div>
 
 </div>
 <div>

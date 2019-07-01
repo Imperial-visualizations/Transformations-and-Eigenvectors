@@ -82,41 +82,99 @@ function makeTableHTML(myArray) {
  * @param {float} angle - angle of rotation.
  * @param {string} rotationType - rotation about three coordinate axes.
  */
-function displayRotationMatrix(angle, rotationType) {
+function displayRotationMatrix(angle, rotationType,reflectionType) {
     var result;
     var cosAngle = "cos("+String(Math.abs(angle))+"π"+")";
+    var mcosAngle = "-cos("+String(Math.abs(angle))+"π"+")";
     var sinAngle1 = "sin(0)", sinAngle2 = "-sin(0)";
+    var msinAngle1 = "-sin(0)", msinAngle2 = "sin(0)";
     if (angle === "0" || angle === "-2" || angle === "2"){
         cosAngle = "1"; sinAngle1 = "0"; sinAngle2 = "0";
     } else if (angle > 0) {
         sinAngle1 = "sin(" + String(angle)+"π)"; sinAngle2 = "-sin(" + String(angle)+"π)";
+        msinAngle1 = "-sin(" + String(angle)+"π)"; msinAngle2 = "sin(" + String(angle)+"π)";
     } else if (angle < 0) {
         sinAngle1 = "-sin(" + String(-angle)+"π)"; sinAngle2 = "sin(" + String(-angle)+"π)";
+        msinAngle1 = "sin(" + String(-angle)+"π)"; msinAngle2 = "-sin(" + String(-angle)+"π)";
     }
     if (rotationType === "rotateX") {
-        result = makeTableHTML(
-            [
-                ["1", "0", "0"],
-                ["0", cosAngle, sinAngle2],
-                ["0", sinAngle1, cosAngle]
-            ]
-        )
+        if (reflectionType === "reflectX"){
+            result = makeTableHTML(
+                [
+                    ["-1", "0", "0"],
+                    ["0", cosAngle, sinAngle2],
+                    ["0", sinAngle1, cosAngle]
+                ]
+            )
+        }else if(reflectionType === "reflectY"){
+            result = makeTableHTML(
+                [
+                    ["1", "0", "0"],
+                    ["0", mcosAngle, msinAngle2],
+                    ["0", sinAngle1, cosAngle]
+                ]
+            )
+        }else if(reflectionType === "reflectZ"){
+            result = makeTableHTML(
+                [
+                    ["1", "0", "0"],
+                    ["0", cosAngle, sinAngle2],
+                    ["0", msinAngle1, mcosAngle]
+                ]
+            )
+        }
     } else if (rotationType === "rotateY") {
-        result = makeTableHTML(
-            [
-                [cosAngle, "0", sinAngle1],
-                ["0", "1", "0"],
-                [sinAngle2, "0", cosAngle]
-            ]
-        )
+        if(reflectionType === "reflectX"){
+            result = makeTableHTML(
+                [
+                    [mcosAngle, "0", msinAngle1],
+                    ["0", "1", "0"],
+                    [sinAngle2, "0", cosAngle]
+                ]
+            )
+        }else if(reflectionType === "reflectY"){
+           result = makeTableHTML(
+                [
+                    [cosAngle, "0", sinAngle1],
+                    ["0", "-1", "0"],
+                    [sinAngle2, "0", cosAngle]
+                ]
+            )
+        }else if(reflectionType === "reflectY"){
+          result = makeTableHTML(
+                [
+                    [cosAngle, "0", sinAngle1],
+                    ["0", "1", "0"],
+                    [msinAngle2, "0", mcosAngle]
+                ]
+            )
+        }
     } else if (rotationType === "rotateZ") {
-        result = makeTableHTML(
-            [
-                [cosAngle, sinAngle2, "0"],
-                [sinAngle1, cosAngle, "0"],
-                ["0", "0", "1"]
-            ]
-        )
+        if(reflectionType === "reflectX"){
+            result = makeTableHTML(
+                [
+                    [mcosAngle, msinAngle2, "0"],
+                    [sinAngle1, cosAngle, "0"],
+                    ["0", "0", "1"]
+                ]
+            )
+        }else if(reflectionType === "reflectY"){
+            result = makeTableHTML(
+                [
+                    [cosAngle, sinAngle2, "0"],
+                    [msinAngle1, mcosAngle, "0"],
+                    ["0", "0", "1"]
+                ]
+            )
+        }else if(reflectionType === "reflectZ"){
+            result = makeTableHTML(
+                [
+                    [cosAngle, sinAngle2, "0"],
+                    [msinAngle1, mcosAngle, "0"],
+                    ["0", "0", "1"]
+                ]
+            )
+        }
     }
     return result;
 }
@@ -124,34 +182,21 @@ function displayRotationMatrix(angle, rotationType) {
  * Produces display for reflection matrix.
  * @param {string} reflectionType - reflection on three planes: (x = 0, y = 0 and, z = 0).
  */
-function displayReflectionMatrix(reflectionType) {
-    var result;
-    if (reflectionType === "reflectX") {
-        result = makeTableHTML(
-            [
-                ["-1", "0", "0"],
-                ["0", "1", "0"],
-                ["0", "0", "1"]
-            ]
-        )
-    } else if (reflectionType === "reflectY") {
-        result = makeTableHTML(
-            [
-                ["1", "0", "0"],
-                ["0", "-1", "0"],
-                ["0", "0", "1"]
-            ]
-        )
-    } else if (reflectionType === "reflectZ") {
-        result = makeTableHTML(
-            [
-                ["1", "0", "0"],
-                ["0", "1", "0"],
-                ["0", "0", "-1"]
-            ]
-        )
+
+function checkCommute(angle1, angle2){
+    var angle1 = document.getElementById('rotator1').value * Math.PI;
+    var angle2 = document.getElementById('rotator2').value * Math.PI;
+    var matrix1 = [[1, 0, 0], [0, Math.cos(angle1), -Math.sin(angle1)], [0, Math.sin(angle1), Math.cos(angle1)]];
+    var matrix2 = [[Math.cos(angle2), 0, Math.sin(angle2)], [0, 1, 0], [-Math.sin(angle2), 0, Math.cos(angle2)]];
+    var AtoB = math.multiply(matrix1, matrix2)
+    var BtoA = math.multiply(matrix2, matrix1)
+    if (AtoB != BtoA){
+        var popup = document.getElementById("noncommute");
+    }else{
+        var popup = document.getElementById("commute");
     }
-    return result;
+    popup.classList.toggle("show");
+
 }
 
 //Computation functions
@@ -164,7 +209,7 @@ function displayReflectionMatrix(reflectionType) {
  * @param {int} frameSize - size of the frames.
  * @param {bool} addTrace - if it is true, it will add trace line. (default: true)
  */
-function computeFrames(transformation, start, end, startVec, frameSize, addTrace = true) {
+function computeFrames(transformation, start, end, startVec, frameSize, addTrace = true, color) {
     var intermediate = numeric.linspace(start, end, frameSize);
     var traceLine = [startVec];
     var frames =[], data;
@@ -179,7 +224,7 @@ function computeFrames(transformation, start, end, startVec, frameSize, addTrace
             newLine.arrowHead(black)
         ];
         if (addTrace) {
-            data.push(new Line(traceLine).gObject(orange));
+            data.push(new Line(traceLine).gObject(color));
         }
         frames.push({data: data});
     }
@@ -202,6 +247,7 @@ function computeFrames(transformation, start, end, startVec, frameSize, addTrace
  * @param {string} color1 - color of first rotation.
  * @param {string} color2 - color of second rotation.
  */
+
 function computeCompositeRotations(frames, rotation1, rotation2, angle1, angle2, initialVec, frameSize, arrowColor, color1, color2, point=[0,0,0]) {
     var intermediate1 = numeric.linspace(0.0, angle1, frameSize);
     var intermediate2 = numeric.linspace(0.0, angle2, frameSize);
@@ -272,6 +318,8 @@ function computeCommute(rotation1, rotation2, angle1, angle2, frameSize) {
         newVec
     );
 
+
+
     return frames;
 }
 
@@ -297,9 +345,9 @@ function updateMatrixDisplay(matrix, idName) {
 
     var previous = makeTableHTML(
         [
-            [Math.round(historyVectors[index - 1][0]*100)/100],
-            [Math.round(historyVectors[index - 1][1]*100)/100],
-            [Math.round(historyVectors[index - 1][2]*100)/100]
+            [Math.round(-2.*100)/100],
+            [Math.round(-2.*100)/100],
+            [Math.round(2.*100)/100]
         ]
     )
 
@@ -349,7 +397,6 @@ function initPlot() {
     historyIndex = 0;
     historyCount = 0;
     displayCurrent(0, "matrixDisplay");
-    displayCurrent(0, "matrixDisplay2");
 
     histPlot(0);
     $("#animate").prop("disabled",false);
@@ -402,7 +449,7 @@ function animateTransformation(frames, playID) {
 
 /** It creates rotations animation frames */
 function animateRotate() {
-    var frames;
+    var frames1;
     var rotateAxis = document.getElementById("rotateSelect").value
     var slider = document.getElementById('rotator').value;
     var angle = slider * Math.PI;
@@ -412,38 +459,32 @@ function animateRotate() {
     }
     var index = historyIndex % historyLimit;
     if (rotateAxis === "rotateX") {
-        frames = computeFrames(rotationX, 0, angle, historyVectors[index], frameSize);
+        frames1 = computeFrames(rotationX, 0, angle, historyVectors[index], frameSize,true,orange);
     } else if (rotateAxis === "rotateY") {
-        frames = computeFrames(rotationY, 0, angle, historyVectors[index], frameSize);
+        frames1 = computeFrames(rotationY, 0, angle, historyVectors[index], frameSize,true,orange);
     } else if (rotateAxis === "rotateZ") {
-        frames = computeFrames(rotationZ, 0, angle, historyVectors[index], frameSize);
+        frames1 = computeFrames(rotationZ, 0, angle, historyVectors[index], frameSize,true,orange);
     }
-
-    updateMatrixDisplay(displayRotationMatrix(slider, rotateAxis), "matrixDisplay");
+    var frames2;
+    var plane = document.getElementById('reflectSelect').value;
+    var frameSize = 10;
+    var index = historyIndex % historyLimit;
+    if (plane === "reflectX") {
+        frames2 = computeFrames(scaleX, 1, -1, historyVectors[index], frameSize,true,black);
+    } else if (plane === "reflectY") {
+        frames2 = computeFrames(scaleY, 1, -1, historyVectors[index], frameSize,true,black);
+    } else if (plane === "reflectZ") {
+        frames2 = computeFrames(scaleZ, 1, -1, historyVectors[index], frameSize,true,black);
+    }
+    frames=frames1.concat(frames2)
+    planePlot(plane);
+    updateMatrixDisplay(displayRotationMatrix(slider, rotateAxis, plane), "matrixDisplay");
     enableUndoReset();
     animateTransformation(frames, "#animate");
     return;
 }
 /** It creates reflection animation frames */
-function animateReflect() {
-    var frames;
-    var plane = document.getElementById('reflectSelect').value;
-    var frameSize = 10;
-    var index = historyIndex % historyLimit;
-    if (plane === "reflectX") {
-        frames = computeFrames(scaleX, 1, -1, historyVectors[index], frameSize, false);
-    } else if (plane === "reflectY") {
-        frames = computeFrames(scaleY, 1, -1, historyVectors[index], frameSize, false);
-    } else if (plane === "reflectZ") {
-        frames = computeFrames(scaleZ, 1, -1, historyVectors[index], frameSize, false);
-    }
 
-    updateMatrixDisplay(displayReflectionMatrix(plane), "matrixDisplay2");
-    planePlot(plane);
-    enableUndoReset();
-    animateTransformation(frames, "#animate");
-    return;
-}
 /**
  * Plots a plane: x = 0, y = 0 or z = 0
  * @param {string} plane - plane type.
@@ -493,6 +534,7 @@ function planePlot(plane) {
 /** prepares the plots and interface for [commute?] */
 function commutePlot() {
     Plotly.purge("graph");
+
     var angle1 = document.getElementById('rotator1').value * Math.PI;
     var angle2 = document.getElementById('rotator2').value * Math.PI;
     var frameSize = 20;
@@ -500,7 +542,6 @@ function commutePlot() {
     var frames = computeCommute(rotationX, rotationY, angle1, angle2, frameSize);
     var extra = axes.slice();
     extra.push(sphere);
-
     initAnimation("commuteAnimate", frames, extra, layout, 10, [0, 38], true);
 }
 
@@ -513,13 +554,14 @@ function undo(){
         disableUndoReset();
     }
     displayCurrent(index, "matrixDisplay");
-    displayCurrent(index, "matrixDisplay2");
     histPlot(index);
     return;
 }
 
+
 function main() {
     //Sliders
+
     $("input[type=range]").each(function () {
         var displayEl;
         $(this).on('input', function(){
@@ -538,7 +580,7 @@ function main() {
             }
         });
 
-        $(this).on("change", function(){
+        $(this).on("input", function(){
             var rotatorName = $(this).attr("id");
             if (rotatorName === "rotator1" || rotatorName === "rotator2"){
                 commutePlot();
@@ -552,10 +594,8 @@ function main() {
     $("input[type=submit]").click(function () {
         //log(this);
         var idName = $(this).attr("id");
-        if (idName === "animate1") {
+        if (idName === "animate") {
             animateRotate();
-        }if (idName === "animate2") {
-            animateReflect();
         }else if (idName === "commuteAnimate"){
             startAnimation();
         }
@@ -570,7 +610,9 @@ function main() {
         }
     });
 
+
     //Initialisation
     initPlot();
+        commutePlot();
 }
 $(document).ready(main);

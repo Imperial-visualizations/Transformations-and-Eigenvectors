@@ -28,6 +28,64 @@
 <script type="text/javascript" src="scripts/MathJax-master/MathJax.js">
 </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<style>
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
 </head>
 <body>
 
@@ -36,35 +94,9 @@
 <div class="container">
     <div class="row">
         <!-- Graph -->
-        <div class="six columns">
-            <h1>
-                On a Sphere:
-            </h1>
-            <div id="graph">
-            </div>
-            <div id="frameSlider">
-                <label class="sliderTitle">
-                    Frame #:
-                    <span data-unit="" id="commuteAnimateSliderDisplay">
-       1
-      </span>
-                </label>
-                <label class="slider">
-                    <input class="inputs" id="commuteAnimateSlider" max="77" min="0" step="1" type="range" value="0">
-                    <span class="sliderMin">
-       0
-      </span>
-                    <span class="sliderMax">
-       77
-      </span>
-                </label>
-            </div>
-        </div>
-        <!--Bottons-->
-        <div class="six columns">
-            <!--Main Options-->
 
 
+         <div class="six columns">
                 <!--Rotation-->
                 <h5>Rotate</h5>
                     <div class="rotate3D">
@@ -102,8 +134,25 @@
         </span>
                         </label>
                     </div>
+                        <h5>Reflect</h5>
+                <div class="reflect">
+                    <strong>
+                        Select Plane:
+                    </strong>
+                    <select id="reflectSelect">
+                        <option value="reflectX">
+                            X = 0
+                        </option>
+                        <option value="reflectY">
+                            Y = 0
+                        </option>
+                        <option value="reflectZ">
+                            Z = 0
+                        </option>
+                    </select>
+                </div>
                     <div class="playButtons">
-                    <input class="button-primary" id="animate1" type="submit" value="Play">
+                    <input class="button-primary" id="animate" type="submit" value="Play">
                     <input id="undo" type="button" value="⤺ Undo">
                     <input id="reset" type="button" value="Reset to (-2,-2,2)">
                     </div>
@@ -121,37 +170,8 @@
 
 
                 <!--Reflection-->
-            <h5>Reflect</h5>
-                <div class="reflect">
-                    <strong>
-                        Select Plane:
-                    </strong>
-                    <select id="reflectSelect">
-                        <option value="reflectX">
-                            X = 0
-                        </option>
-                        <option value="reflectY">
-                            Y = 0
-                        </option>
-                        <option value="reflectZ">
-                            Z = 0
-                        </option>
-                    </select>
-                </div>
 
-                    <div class="playButtons">
-                        <input id="animate2" class="button-primary" type="submit" value="Play">
-                        <input id="undo" type="button" value="&#10554; Undo">
-                        <input id="reset" type="button" value="Reset to (-2,-2,2)">
-                    </div>
-                    <h3>
-                    Transformation:
-                    </h3>
-                    <label>
-                        Current Vector = M x Previous Vector
-                    </label>
-                    <p id="matrixDisplay2">
-                    </p>
+
 
 
                     <div class="rotateCommute">
@@ -221,10 +241,27 @@
                                 A
                             </font>
                         </h3>
-                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play">
+                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play"><br>
+
                     </div>
 
-    </div>
+
+
+            <style="text-align:center">
+
+
+            <div class="popup" onclick="checkCommute()"><h5><strong>Click me to see if commute!</strong></h5>
+            <span class="popuptext" id="commute">commute!</span>
+            <span class="popuptext" id="noncommute">not commute!</span>
+            </div>
+         </div>
+        <div class="six columns">
+
+            <div id="graph">
+            </div>
+        </div>
+
+
 </div>
 
 
