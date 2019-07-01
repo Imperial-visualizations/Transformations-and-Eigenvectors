@@ -209,7 +209,7 @@ function checkCommute(angle1, angle2){
  * @param {int} frameSize - size of the frames.
  * @param {bool} addTrace - if it is true, it will add trace line. (default: true)
  */
-function computeFrames(transformation, start, end, startVec, frameSize, addTrace = true,color) {
+function computeFrames(transformation, start, end, startVec, frameSize, addTrace = true, color) {
     var intermediate = numeric.linspace(start, end, frameSize);
     var traceLine = [startVec];
     var frames =[], data;
@@ -542,7 +542,6 @@ function commutePlot() {
     var frames = computeCommute(rotationX, rotationY, angle1, angle2, frameSize);
     var extra = axes.slice();
     extra.push(sphere);
-
     initAnimation("commuteAnimate", frames, extra, layout, 10, [0, 38], true);
 }
 
@@ -562,6 +561,7 @@ function undo(){
 
 function main() {
     //Sliders
+
     $("input[type=range]").each(function () {
         var displayEl;
         $(this).on('input', function(){
@@ -580,7 +580,7 @@ function main() {
             }
         });
 
-        $(this).on("change", function(){
+        $(this).on("input", function(){
             var rotatorName = $(this).attr("id");
             if (rotatorName === "rotator1" || rotatorName === "rotator2"){
                 commutePlot();
@@ -613,5 +613,6 @@ function main() {
 
     //Initialisation
     initPlot();
+        commutePlot();
 }
 $(document).ready(main);

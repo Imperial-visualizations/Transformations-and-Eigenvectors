@@ -1,7 +1,7 @@
 'use strict';
 // Global variables:
-var animationFrames;
-var animationIndex, animationLimit;
+let animationFrames;
+let animationIndex, animationLimit;
 var duration = 50;
 var isPaused = false;
 var stops;
@@ -58,6 +58,7 @@ function reset() {
 function historyPlot(index) {
     animationIndex = index;
     var data = [];
+    console.log(animationFrames)
     for (var i = 0, n = animationFrames[index].data.length; i < n; ++i) {
         data.push(animationFrames[index].data[i]);
     }
@@ -128,6 +129,8 @@ function updateSlider() {
 
 /** Starts the animation. */
 function startAnimation() {
+console.log(animationIndex)
+console.log(animationLimit)
     if (animationIndex < animationLimit){
         isPaused = !isPaused;
         document.getElementById(playID).value = (isPaused) ? "Play":"Pause";
