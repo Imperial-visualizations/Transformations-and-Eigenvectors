@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */ 
 $(document).ready(function () {
     // Now begins the maths Segment of the code
     //function that copies an array
@@ -7,14 +8,12 @@ $(document).ready(function () {
             if (new_arr[i] instanceof Array)
                 new_arr[i] = copy(new_arr[i]);
         return new_arr;
-    };
+    }
 
     //calculates all the new data to be plotted using a transformation matrix and the probe's angle
     function calculate_positions_and_vectors(inputTheta, x1, y1, x2, y2) {
         let matrix = [[x1, y1], [x2, y2]];
-
         const rho = 15;
-
         let xArray = [];
         let yArray = [];
 
@@ -215,7 +214,7 @@ $(document).ready(function () {
     function updatePlot() {
         customMatrix(u00.val(), u10.val(), u01.val(), u11.val());
         data_for_plotting = calculate_positions_and_vectors(slider.val(), u00.val(), u01.val(), u10.val(), u11.val());
-        graph(data_for_plotting)
+        graph(data_for_plotting);
 
     }
 
@@ -251,7 +250,7 @@ $(document).ready(function () {
             ygeneraldifference[i] = yArrayTrans[i] - yArray[i];
         }
         animator = setInterval(Animate, animate_time, xInput, yInput, xprobedifference, yprobedifference, xArray, yArray, xgeneraldifference, ygeneraldifference);
-    };
+    }
 
 
     function Animate(xprobe, yprobe, xdiff_probe, ydiff_probe, xarrayall, yarrayall, xdiff_general, ydiff_general) {
@@ -270,13 +269,13 @@ $(document).ready(function () {
                 y: [yarrayall, yprobe],
             }, [0, 4]);
 
-            counter += t
+            counter += t;
             if (counter >= 1) {
-                clearInterval(animator)
+                clearInterval(animator);
                 $("#animator").html("Apply Transformation");
             }
         }
-    };
+    }
 
     // find eigenvectors and eigenvalues from an inputted matrix, then update the correspoinding eigenvector html
     function customMatrix(a, c, b, d) {
@@ -291,17 +290,17 @@ $(document).ready(function () {
 
         $("#eigenvector1").html("Eigenvector 1: " + "(" + xEigVector0 + "," + yEigVector0 + ") <br> Eigenvalue 1: " + eigenvalue0);
         $("#eigenvector2").html("Eigenvector 2:" + "(" + xEigVector1 + "," + yEigVector1 + ") <br> Eigenvalue 2: " + eigenvalue1);
-    };
+    }
 
     // function that updates all plots and resets the animator
     function inputupdate() {
         clearInterval(animator);
         counter = 0;
         $("#animator").html("Apply Transformation");
-        let anglepi = Math.round(parseFloat(slider.val()) * 100 / math.pi) / 100
-        probetitle.html("Probe line rotation: " + anglepi + "π")
+        let anglepi = Math.round(parseFloat(slider.val()) * 100 / math.pi) / 100;
+        probetitle.html("Probe line rotation: " + anglepi + "π");
         updatePlot();
-    };
+    }
 
     //defines which function(s) to call when the matrix forms or sliders are updated
     $(".inputs").on("input", inputupdate);
@@ -311,7 +310,7 @@ $(document).ready(function () {
         if ($("#animator").html() == "Apply Transformation") {
             ispaused = false;
             startAnimation();
-            $("#animator").html("Pause Transformation")
+            $("#animator").html("Pause Transformation");
         } else if ($("#animator").html() == "Pause Transformation") {
             ispaused = true;
             $("#animator").html("Continue Transformation");
@@ -322,7 +321,7 @@ $(document).ready(function () {
     });
 
     //defines which function(s) to call when the reset transformation button is clicked
-    $("#reset").on("click", inputupdate)
+    $("#reset").on("click", inputupdate);
     //plot a new empty plot in the graph div, then call the update function
     let dummy;
     Plotly.newPlot("graph", dummy);
