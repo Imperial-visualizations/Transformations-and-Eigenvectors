@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="4Interpreting_Commutation.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="4Interpreting_Commutation.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/4Interpreting_Commutation.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2059">
-              <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+            <state relative-caret-position="204">
+              <caret line="157" column="26" lean-forward="true" selection-start-line="153" selection-start-column="20" selection-end-line="157" selection-end-column="26" />
               <folding>
                 <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
               </folding>
@@ -23,27 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="p5.min.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../drawings/script/p5.min.js">
+      <file leaf-file-name="1Introducing_Matrix_Transformations.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/1Introducing_Matrix_Transformations.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-17" />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sphere.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/sphere.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="615" column="22" selection-start-line="615" selection-start-column="22" selection-end-line="615" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="animate.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/scripts/animate.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2227">
-              <caret line="131" column="7" selection-start-line="131" selection-end-line="131" selection-end-column="7" />
+            <state relative-caret-position="219">
+              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
             </state>
           </provider>
         </entry>
@@ -97,6 +81,7 @@
         <option value="$PROJECT_DIR$/4Interpreting_Commutation.html" />
         <option value="$PROJECT_DIR$/scripts/animate.js" />
         <option value="$PROJECT_DIR$/scripts/sphere.js" />
+        <option value="$PROJECT_DIR$/1Introducing_Matrix_Transformations.html" />
       </list>
     </option>
   </component>
@@ -185,22 +170,22 @@
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24983734" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -454,26 +439,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../drawings/script/p5.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../drawings/script/smily faces">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/../drawings/script/smily faces" />
     <entry file="file://$PROJECT_DIR$/scripts/CubeRotation.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5368">
           <caret line="276" column="24" selection-start-line="276" selection-start-column="24" selection-end-line="276" selection-end-column="24" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/1Introducing_Matrix_Transformations.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/scripts/Introducing_Matrix_Transformations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10179" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/styles/style.css">
@@ -492,18 +465,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/scripts/sphere.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
+        <state relative-caret-position="10455">
           <caret line="615" column="22" selection-start-line="615" selection-start-column="22" selection-end-line="615" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/4Interpreting_Commutation.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2059">
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        <state relative-caret-position="204">
+          <caret line="157" column="26" lean-forward="true" selection-start-line="153" selection-start-column="20" selection-end-line="157" selection-end-column="26" />
           <folding>
             <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/Introducing_Matrix_Transformations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7860" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/1Introducing_Matrix_Transformations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
         </state>
       </provider>
     </entry>
