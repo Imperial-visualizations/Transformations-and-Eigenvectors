@@ -34,16 +34,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="six columns">
-            <div id='graph' style="height:60vh;"></div>
-            <h6>Overall Transformation:</h6>
-            <p id="overallMatrix"></p>
-        </div>
 
-        <div class="six columns">
-<div class="row">
-            <div class="six columns">
-                                        <h5>Skew Matrix:</h5>
+
+        <div class="three columns">
+
+                        <h5>Skew Matrix:</h5>
                         <label class="radioTitle">Axis: </label>
                         <label class="radio">
                             <input type="radio" name="axis" id="x" checked/><span for="radio"></span>
@@ -58,9 +53,9 @@
                         <!--<input class="button-primary" type="submit" value="Apply" onclick="plotSkew()">-->
                         <!--<input type="button" value="Reset" onclick="resetStuff()">-->
                     <!--</div>-->
-            </div>
 
-            <div class="six columns">
+
+
                         <h5>Rotation Matrix:</h5>
                     <div class="sliderRotate">
                         <label class="sliderTitle">Rotation Angle (θ):</label>
@@ -86,12 +81,9 @@
                         <!--</div>-->
                         <!--<input class="button-primary" type="submit" value="Apply" onclick="plotRotate()">-->
                         <!--<input type="button" value="Reset" onclick="resetStuff()">-->
-                    <!--</div>-->
-            </div>
-            </div>
-            <div class="row"></div>
-                    <h4>Scaling Matrix:</h4>
-            <div class="six columns">
+
+                    <h5>Scaling Matrix:</h5>
+
                     <div class="sliderScale">
                         <label class="sliderTitle">x-scale: <span id="scale1IDDisplay">1</span></label>
                         <label>
@@ -100,8 +92,7 @@
                             <span class="sliderMin">-4</span><span class="sliderMax">4</span>
                         </label>
                     </div>
-            </div>
-            <div class="six columns">
+
                     <div class="sliderScale">
                         <label class="sliderTitle">y-scale: <span id="scale2IDDisplay">1</span></label>
                         <label>
@@ -110,17 +101,18 @@
                             <span class="sliderMin">-4</span><span class="sliderMax">4</span>
                         </label>
                     </div>
-            </div>
+            <h6>Overall Transformation:</h6>
+            <p id="overallMatrix"></p>
+        </div>
                     <!--<p id="scalematrix"></p>-->
                     <!--<div class="sliderScale">-->
                         <!--<input class="button-primary" type="submit" value="Apply" onclick="plotScale()">-->
                         <!--<input type="button" value="Reset" onclick="resetStuff()">-->
                     <!--</div>-->
-
-
+        <div class="four columns">
+                    <h5>Custom Matrix:</h5>
                     <p id="tableInput"></p>
-                    <h4>Custom Matrix:</h4>
-                    <p id="custommatrix"></p>
+
                     <div class="sliderCustom">
                         <input class="button-primary" type="submit" value="Apply" onclick="plotCustom()">
                         <input type="button" value="Reset" onclick="resetStuff()">
@@ -129,11 +121,15 @@
 
                 <br>
                 <h4>\(|det(A)|=\,\) <span id="determinant"></span></h4>
-            </div>
+        </div>
+
+        <div class="five columns">
+            <div id='graph' style="height:60vh;"></div>
+
         </div>
     </div>
-
 </div>
+
 
 <!--THE BRAINS-->
 <script src="scripts/Introducing_Matrix_Transformations.js"></script>
