@@ -39,31 +39,42 @@
         <div class="three columns">
 
                         <h5>Skew Matrix:</h5>
-                        <label class="radioTitle">Axis: </label>
-                        <label class="radio">
-                            <input type="radio" name="axis" id="x" checked/><span for="radio"></span>
+
+                    <div class="sliderSkew">
+                        <p id="skewmatrix"></p>
+                        <label class="sliderTitle">Skew Angle along x-axis(θ):</label>
+                        <label class="slider">
+                            <input id="skewxID" type="range" value="0" min="0" max="0.25" step="0.025"
+                                    onchange="skewmatrix1()" data-unit="radians"/>
+                            <span class="sliderMin">0</span><span class="sliderMax">π/4</span>
                         </label>
-                        <label class="radioLabel">x</label>
-                        <label class="radio">
-                            <input type="radio" name="axis" id="y"/><span for="radio"></span>
+
+                        <label class="sliderTitle">Skew Angle along y-axis(θ):</label>
+                        <label class="slider">
+                            <input id="skewyID" type="range" value="0" min="0" max="0.25" step="0.025"
+                                   onchange = "skewmatrix2()" data-unit="radians"/>
+                            <span class="sliderMin">0</span><span class="sliderMax">π/4</span>
                         </label>
-                        <label class="radioLabel">y</label>
-                    <!--<div class="sliderSkew">-->
-                        <!--<p id="skewmatrix"></p>-->
-                        <!--<input class="button-primary" type="submit" value="Apply" onclick="plotSkew()">-->
-                        <!--<input type="button" value="Reset" onclick="resetStuff()">-->
-                    <!--</div>-->
+                        <input class="button-primary" type="submit" value="Apply" onclick="plotSkew()">
+                        <input type="button" value="Reset" onclick="resetStuff()">
+
+
+                    </div>
 
 
 
                         <h5>Rotation Matrix:</h5>
                     <div class="sliderRotate">
                         <label class="sliderTitle">Rotation Angle (θ):</label>
-                        <label>
+                        <label class="slider">
                             <input id="rotateID" type="range" value="0" min="0" max="2" step="0.05"
-                                   oninput="rotateMatrix()" data-unit="radians"/>
-                            <span class="sliderMin">0</span><span class="sliderMax">2π rad</span>
+                                   onchange="rotatematrix1()" data-unit="radians"/>
+                            <span class="sliderMin">0</span><span class="sliderMax">2π</span>
                         </label>
+                    </div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Apply" onclick="plotRotate()">
+                        <input type="button" value="Reset" onclick="resetStuff()">
                     </div>
                     <!--<div class="sliderRotate">-->
                         <!--<p id="showtheta"></p>-->
@@ -88,7 +99,7 @@
                         <label class="sliderTitle">x-scale: <span id="scale1IDDisplay">1</span></label>
                         <label>
                             <input id="scale1ID" type="range" value="1" min="-4" max="4" step="0.1"
-                                   oninput="scaleMatrix()"/>
+                                   onchange="scalematrix1()"/>
                             <span class="sliderMin">-4</span><span class="sliderMax">4</span>
                         </label>
                     </div>
@@ -97,19 +108,28 @@
                         <label class="sliderTitle">y-scale: <span id="scale2IDDisplay">1</span></label>
                         <label>
                             <input id="scale2ID" type="range" value="1" min="-4" max="4" step="0.1"
-                                   oninput="scaleMatrix()"/>
+                                   onchange="scalematrix2()" "/>
                             <span class="sliderMin">-4</span><span class="sliderMax">4</span>
+
                         </label>
                     </div>
+                    <div>
+                        <input class="button-primary" type="submit" value="Apply" onclick="plotScale()">
+                        <input type="button" value="Reset" onclick="resetStuff()">
+                    </div>
+
+
             <h6>Overall Transformation:</h6>
             <p id="overallMatrix"></p>
         </div>
+                     <div>
                     <!--<p id="scalematrix"></p>-->
                     <!--<div class="sliderScale">-->
-                        <!--<input class="button-primary" type="submit" value="Apply" onclick="plotScale()">-->
-                        <!--<input type="button" value="Reset" onclick="resetStuff()">-->
+                        <input class="button-primary" type="submit" value="Apply" onclick="plotScale()">
+                        <input type="button" value="Reset" onclick="resetStuff()">
                     <!--</div>-->
-        <div class="four columns">
+                    </div>
+        <div class="three columns">
                     <h5>Custom Matrix:</h5>
                     <p id="tableInput"></p>
 
@@ -128,7 +148,34 @@
 
         </div>
     </div>
+
+
+             <h6>The (lively updating) transformation matrix.</h6>
+                        <div>
+                        <table class="matrix" id="rotateTable1">
+                            <tbody>
+                            <tr>
+                                <td align="center">
+                                    1
+                                </td>
+                                <td align="center">
+                                    0
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center">
+                                    0
+                                </td>
+                                <td align="center">
+                                    1
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 </div>
+
+
 
 
 <!--THE BRAINS-->

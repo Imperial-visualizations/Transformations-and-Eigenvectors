@@ -74,15 +74,18 @@ function skew(vec, axis) {
     // Number of frames
     var N = 50;
     // If axis = 0 then skew in x-direction
+     var skewx = document.getElementById('skewxID').value
+     var skewy = document.getElementById('skewyID').value
+
     if (axis === 0) {
-        var A = [[1, 1], [0, 1]];
+        var A = [[1, Math.tan(skewx*Math.PI)], [0, 1]];
         var newvec = math.multiply(A, math.matrix(vec));
         var x = numeric.linspace(vec[0], newvec._data[0], N);
         var y = numeric.linspace(vec[1], newvec._data[1], N);
         return [x, y]
     }
     else if (axis === 1) {
-        var A = [[1, 0], [1, 1]];
+        var A = [[1, 0], [Math.tan(skewy*Math.PI), 1]];
         var newvec = math.multiply(A, math.matrix(vec));
         var x = numeric.linspace(vec[0], newvec._data[0], N);
         var y = numeric.linspace(vec[1], newvec._data[1], N);
@@ -176,11 +179,14 @@ function squareTrans() {
         vertex3 = [x2[x2.length - 1], y2[y2.length - 1]]
         return [x0, x1, x2, y0, y1, y2]
     } else if (arguments[0] === "skew") {
+        var skewx = document.getElementById('skewxID').value
+        var skewy = document.getElementById('skewyID').value
+
         var axis = arguments[1];
         if (axis === 0) {
-            my_matrix = math.multiply([[1, 1], [0, 1]], my_matrix)
+            my_matrix = math.multiply([[1, Math.tan(skewx*Math.PI)], [0, 1]], my_matrix)
         } else if (axis === 1) {
-            my_matrix = math.multiply([[1, 0], [1, 1]], my_matrix)
+            my_matrix = math.multiply([[1, 0], [Math.tan(skewy*Math.PI), 1]], my_matrix)
         }
         var [x0, y0] = skew(arguments[2], axis);
         vertex1 = [x0[x0.length - 1], y0[y0.length - 1]]
@@ -486,16 +492,14 @@ function plotRotate() {
  * @function
  */
 function plotSkew() {
-    if (document.getElementById("x").checked) {
-        plotterSkew(0, vertex1, vertex2, vertex3);
-        $("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
-        printDet()
-    } else {
-        plotterSkew(1, vertex1, vertex2, vertex3);
-        $("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
-        printDet()
-    }
+    var skewx = document.getElementById('skewxID').value
+    var skewy = document.getElementById('skewyID').value
 
+    plotterSkew(0, vertex1, vertex2, vertex3);
+    //$("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
+    plotterSkew(1, vertex1, vertex2, vertex3);
+    $("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
+    printDet()
 }
 
 /** Replots the graphs after reading data from sliders
@@ -612,6 +616,55 @@ function resetStuff() {
     $("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
     printDet()
 }
+
+// for the lively updating transformation matrix (by Jung)
+function skewmatrix1(){
+    angleSelector = document.getElementById("skewxID").value
+
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+}
+
+function skewmatrix2(){
+    angleSelector = document.getElementById("skewyID").value
+
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+}
+
+function rotatematrix1(){
+    angleSelector = document.getElementById("rotateID").value
+
+          rotateTable1.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
+          rotateTable1.rows[0].cells[1].innerHTML = "-sin(" + angleSelector + "π)"
+          rotateTable1.rows[1].cells[0].innerHTML = "sin(" + angleSelector + "π)"
+          rotateTable1.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
+}
+
+function scalematrix1(){
+    angleSelector = document.getElementById("scale1ID").value
+
+          rotateTable1.rows[0].cells[0].innerHTML = angleSelector
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = 1
+}
+
+function scalematrix2(){
+    angleSelector = document.getElementById("scale2ID").value
+
+          rotateTable1.rows[0].cells[0].innerHTML = 1
+          rotateTable1.rows[0].cells[1].innerHTML = 0
+          rotateTable1.rows[1].cells[0].innerHTML = 0
+          rotateTable1.rows[1].cells[1].innerHTML = angleSelector
+}
+
+
+
 
 
 /** Add tables to skew table when ready
