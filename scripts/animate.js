@@ -129,8 +129,7 @@ function updateSlider() {
 
 /** Starts the animation. */
 function startAnimation() {
-console.log(animationIndex)
-console.log(animationLimit)
+
     if (animationIndex < animationLimit){
         isPaused = !isPaused;
         document.getElementById(playID).value = (isPaused) ? "Play":"Pause";

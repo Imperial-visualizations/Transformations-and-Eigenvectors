@@ -96,7 +96,119 @@
         <!-- Graph -->
 
 
-         <div class="six columns">
+         <div class="four columns">
+             <p>
+                 In addition to eigenvectors and eigenvalues, other unique properties of matrices and vectors can be visualised geometrically. Commutation is a shared property of two matrices defined by:
+                $$ A \dot B = B \dot A $$
+                 Geometrically speaking, this means that applying the spacial transformations A then B is identical to applying the transformation B then A. 
+             </p>
+  <!--<input type="button" value="Reset", onclick="reset()">-->
+  <h3>
+        △:
+        <font style="color:#0091D4;">
+            A
+        </font>
+        →
+        <font style="color:#EC7300">
+            B
+        </font>
+    </h3>
+    <h3>
+        ▲:
+        <font style="color:#EC7300">
+            B
+        </font>
+        →
+        <font style="color:#0091D4;">
+            A
+        </font>
+    </h3>
+    <input class="button-primary" id="commuteAnimate" type="submit" value="Play"><br>
+    <div class="popup" onclick="checkCommute()"><h5><strong>Click me to see if commute!</strong></h5>
+        <span class="popuptext" id="commute">commute!</span>
+        <span class="popuptext" id="noncommute">not commute!</span>
+        </div>
+         </div>
+
+         <div class="eight columns">
+             <div class="row">
+                <div id="graph">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="six columns">
+                        <h5>
+                    Vector 1:  
+                </h5>
+                <select id="typeSelect1">
+                        <option value="Rotation">
+                            Rotation
+                        </option>
+                        <option value="Reflection">
+                            Reflection
+                        </option>
+                    </select>
+                about 
+                <select id="typeSelect1">
+                        <option value="Rotation">
+                            X axis
+                        </option>
+                        <option value="Reflection">
+                            Y axis
+                        </option>
+                    </select>
+                <div class="rotateCommute">
+                    <label class="sliderTitle">
+                        Angle:
+                    </label>
+                    <label class="slider">
+
+                            <span class="sliderMin">
+                                    -2π
+                                   </span>
+                        <input class="inputs" id="rotator1" max="2" min="-2" step="0.125" type="range" value="0.5">
+
+                        <span class="sliderMax">
+     2π
+    </span>             
+                </div>
+
+                </div>
+                <div class="six columns">
+                        <h5>
+                        Vector 2:
+                            
+                        </h5>
+
+                        <select id="typeSelect1">
+                                <option value="Rotation">
+                                    Rotation
+                                </option>
+                                <option value="Reflection">
+                                    Reflection
+                                </option>
+                            </select>
+                            about
+                    </label>
+
+                    <label class="sliderTitle">
+                        <strong>Angle:</strong>
+                    </label>
+                    
+
+                            <span class="sliderMin">
+                                    -2π
+                                   </span>
+                        <input class="inputs" id="rotator2" max="2" min="-2" step="0.125" type="range" value="0.5">
+
+                        <span class="sliderMax">
+     2π
+    </span>
+
+                    </div>
+                </div>
+
+         </div>
                 <!--Rotation-->
                 <h5>Rotate</h5>
                     <div class="rotate3D">
@@ -116,19 +228,15 @@
                         </select>
                         <label class="sliderTitle">
                             Angle:
-                            <span data-unit=" π rad" id="rotatorDisplayA1">
-         (1/4)π rad
-        </span>
-                            or
-                            <span data-unit="º" id="rotatorDisplayA2">
-         45º
-        </span>
                         </label>
+                        
                         <label class="slider">
+                                <span class="sliderMin">
+                                        -2π
+                                       </span>
+
                             <input class="inputs" id="rotator" max="2" min="-2" step="0.125" type="range" value="0.25">
-                            <span class="sliderMin">
-         -2π
-        </span>
+
                             <span class="sliderMax">
          2π
         </span>
@@ -156,12 +264,6 @@
                     <input id="undo" type="button" value="⤺ Undo">
                     <input id="reset" type="button" value="Reset to (-2,-2,2)">
                     </div>
-                    <h3>
-                    Transformation:
-                    </h3>
-                    <label>
-                        Current Vector = M x Previous Vector
-                    </label>
                     <p id="matrixDisplay">
                     </p>
 
@@ -174,91 +276,16 @@
 
 
 
-                    <div class="rotateCommute">
-                        <h3 style="border-left: solid 5px rgb(182,109,255); padding-left: 8px;">
-                            Rotation A
-                        </h3>
-                        <label class="sliderTitle">
-                            Rotation about x-axis:
-                            <span data-unit="π rad" id="rotator1DisplayA1">
-         (1/2)π rad
-        </span>
-                            or
-                            <span data-unit="º" id="rotator1DisplayA2">
-         90º
-        </span>
-                        </label>
-                        <label class="slider">
-                            <input class="inputs" id="rotator1" max="2" min="-2" step="0.125" type="range" value="0.5">
-                            <span class="sliderMin">
-         -2π
-        </span>
-                            <span class="sliderMax">
-         2π
-        </span>
-                        </label>
-                        <h3 style="border-left: solid 5px rgb(219,209,0); padding-left: 8px;">
-                            Rotation B
-                        </h3>
-                        <label class="sliderTitle">
-                            Rotation about y-axis:
-                            <span data-unit="π rad" id="rotator2DisplayA1">
-         (1/2)π rad
-        </span>
-                            or
-                            <span data-unit="º" id="rotator2DisplayA2">
-         90º
-        </span>
-                        </label>
-                        <label class="slider">
-                            <input class="inputs" id="rotator2" max="2" min="-2" step="0.125" type="range" value="0.5">
-                            <span class="sliderMin">
-         -2π
-        </span>
-                            <span class="sliderMax">
-         2π
-        </span>
-                        </label>
-
-                        <!--<input type="button" value="Reset", onclick="reset()">-->
-                        <h3>
-                            △:
-                            <font style="color:rgb(182,109,255);">
-                                A
-                            </font>
-                            →
-                            <font style="color:rgb(219,209,0)">
-                                B
-                            </font>
-                        </h3>
-                        <h3>
-                            ▲:
-                            <font style="color:rgb(219,209,0)">
-                                B
-                            </font>
-                            →
-                            <font style="color:rgb(182,109,255);">
-                                A
-                            </font>
-                        </h3>
-                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play"><br>
-
-                    </div>
 
 
 
             <style="text-align:center">
 
 
-            <div class="popup" onclick="checkCommute()"><h5><strong>Click me to see if commute!</strong></h5>
-            <span class="popuptext" id="commute">commute!</span>
-            <span class="popuptext" id="noncommute">not commute!</span>
-            </div>
+            
          </div>
         <div class="six columns">
 
-            <div id="graph">
-            </div>
         </div>
 
 

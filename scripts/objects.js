@@ -1,15 +1,4 @@
 'use strict';
-// Colour definitions:
-var magenta = "#FF00FF",
-    blue = "#0000FF",
-    green = "#008000",
-    impBlue = "#003E74",
-    black = "rgb(0,0,0)",
-    white = "rgb(255,255,255)",
-    cyan = "rgb(0,146,146)", //1
-    lilac = "rgb(182,109,255)", //2
-    orange = "rgb(219,209,0)"; //3
-
 // Plot Utilities:
 /**
  * sets camera options in layout.
@@ -212,7 +201,7 @@ function Sphere(radius) {
             y: this.y,
             z: this.z,
             showscale: false,
-            opacity: 0.6,
+            opacity: 0.74,
             colorscale: [[0.0, color1], [1.0, color2]]
         }
         return sphere;
@@ -266,7 +255,7 @@ function Cylinder(radius, height){
             z: this.z[meshSize - 1],
             line: {color: color.slice(0, -1) + ",0.2)", width: 1},
             surfaceaxis: 2,
-            opacity: 0.5
+            opacity: 0.6
         }
         return top;
     }
@@ -304,7 +293,7 @@ function Cuboid(x, y, z){
             i : [0, 0, 3, 4, 4, 4, 4, 4, 5, 6, 6, 7],
             j : [2, 3, 4, 3, 6, 7, 1, 5, 2, 2, 7, 3],
             k : [1, 2, 0, 7, 5, 6, 0, 1, 1, 5, 2, 2],
-            opacity: 0.5,
+            opacity: 0.6,
             colorscale: [['0', color], ['1', "rgb(255,255,255)"]],
             intensity: [0, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1],
             showscale: false
@@ -335,7 +324,7 @@ function Circle(radius) {
             y: y,
             line: {simplify: false, color: color},
             fill:'toself',
-            opacity: 0.5
+            opacity: 0.7
         }
         return circle;
     }
@@ -375,7 +364,6 @@ function Line2d(points) {
         var wingLength = Math.sqrt(Math.pow(frac*sin45,2) + d*d);
         var wingAngle = Math.acos(d/wingLength);
 
-        console.log(offset);
         var wings_xyz = [
             math.add(p2c(wingLength, phi + wingAngle), offset),
             math.add(p2c(wingLength, phi - wingAngle), offset)

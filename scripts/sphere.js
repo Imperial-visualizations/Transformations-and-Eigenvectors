@@ -1,12 +1,12 @@
 'use strict';
 //Global Initial Parameters:
-var initialVec = [-2., -2., 2.];
+var initialVec = [-2, -2, 2];
 var historyVectors = [initialVec];
 var historyIndex = 0;
 var historyCount = 0;
 var historyLimit = 10;
 var radius = 2*Math.sqrt(3);
-var sphere = new Sphere(radius).gObject(cyan, white);
+var sphere = new Sphere(radius).gObject("#02893B", "#02893B");
 var axes = createAxes(4);
 var layout = {
     autosize: true,
@@ -24,7 +24,7 @@ var layout = {
         yaxis: {range: [-4, 4], autorange: false, zeroline: true,},
         zaxis: {range: [-4, 4], autorange: false, zeroline: true,},
     }
-}
+};
 
 //Matrix Utilities:
 /** Rotation Matrix about x-axis */
@@ -105,7 +105,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     ["0", cosAngle, sinAngle2],
                     ["0", sinAngle1, cosAngle]
                 ]
-            )
+            );
         }else if(reflectionType === "reflectY"){
             result = makeTableHTML(
                 [
@@ -121,7 +121,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     ["0", cosAngle, sinAngle2],
                     ["0", msinAngle1, mcosAngle]
                 ]
-            )
+            );
         }
     } else if (rotationType === "rotateY") {
         if(reflectionType === "reflectX"){
@@ -131,7 +131,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     ["0", "1", "0"],
                     [sinAngle2, "0", cosAngle]
                 ]
-            )
+            );
         }else if(reflectionType === "reflectY"){
            result = makeTableHTML(
                 [
@@ -139,7 +139,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     ["0", "-1", "0"],
                     [sinAngle2, "0", cosAngle]
                 ]
-            )
+            );
         }else if(reflectionType === "reflectY"){
           result = makeTableHTML(
                 [
@@ -147,7 +147,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     ["0", "1", "0"],
                     [msinAngle2, "0", mcosAngle]
                 ]
-            )
+            );
         }
     } else if (rotationType === "rotateZ") {
         if(reflectionType === "reflectX"){
@@ -157,7 +157,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     [sinAngle1, cosAngle, "0"],
                     ["0", "0", "1"]
                 ]
-            )
+            );
         }else if(reflectionType === "reflectY"){
             result = makeTableHTML(
                 [
@@ -165,7 +165,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     [msinAngle1, mcosAngle, "0"],
                     ["0", "0", "1"]
                 ]
-            )
+            );
         }else if(reflectionType === "reflectZ"){
             result = makeTableHTML(
                 [
@@ -173,7 +173,7 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
                     [msinAngle1, mcosAngle, "0"],
                     ["0", "0", "1"]
                 ]
-            )
+            );
         }
     }
     return result;
@@ -184,8 +184,8 @@ function displayRotationMatrix(angle, rotationType,reflectionType) {
  */
 
 function checkCommute(angle1, angle2){
-    var angle1 = document.getElementById('rotator1').value * Math.PI;
-    var angle2 = document.getElementById('rotator2').value * Math.PI;
+    var angle1 = $('#rotator1').val() * Math.PI;
+    var angle2 = $('rotator2').val() * Math.PI;
     var matrix1 = [[1, 0, 0], [0, Math.cos(angle1), -Math.sin(angle1)], [0, Math.sin(angle1), Math.cos(angle1)]];
     var matrix2 = [[Math.cos(angle2), 0, Math.sin(angle2)], [0, 1, 0], [-Math.sin(angle2), 0, Math.cos(angle2)]];
     var AtoB = math.multiply(matrix1, matrix2)
@@ -220,8 +220,8 @@ function computeFrames(transformation, start, end, startVec, frameSize, addTrace
         traceLine.push(newVec);
         newLine = new Line([[0,0,0], newVec]);
         data = [
-            newLine.gObject(black),
-            newLine.arrowHead(black)
+            newLine.gObject("#000000"),
+            newLine.arrowHead("#000000")
         ];
         if (addTrace) {
             data.push(new Line(traceLine).gObject(color));
@@ -264,12 +264,12 @@ function computeCompositeRotations(frames, rotation1, rotation2, angle1, angle2,
         firstTrace = new Line(trace1);
         frames.push({
             data:[
-                afterImage.gObject(white),
-                afterImage.arrowHead(white),
+                afterImage.gObject("#ffffff"),
+                afterImage.arrowHead("#ffffff"),
                 newLine.gObject(arrowColor),
                 newLine.arrowHead(arrowColor),
                 firstTrace.gObject(color1),
-                new Line([[0., 0., 0.], [0., 0., 0.]]).gObject()
+                new Line([[0, 0, 0], [0, 0, 0]]).gObject()
             ]
         });
     }
@@ -281,12 +281,12 @@ function computeCompositeRotations(frames, rotation1, rotation2, angle1, angle2,
         newLine = new Line([[0,0,0], newVec2]);
         frames.push({
             data:[
-                afterImage.gObject(white),
-                afterImage.arrowHead(white),
+                afterImage.gObject("#ffffff"),
+                afterImage.arrowHead("#ffffff"),
                 newLine.gObject(arrowColor),
                 newLine.arrowHead(arrowColor),
                 new Line(trace2).gObject(color2),
-                firstTrace.gObject(color1.slice(0, -1) + ",0.7)")
+                firstTrace.gObject(color1)
             ]
         });
     }
@@ -307,14 +307,14 @@ function computeCommute(rotation1, rotation2, angle1, angle2, frameSize) {
         rotation1, rotation2,
         angle1, angle2,
         initialVec, frameSize,
-        white, lilac, orange
+        "#ffffff", "#0091D4","#EC7300"
     );
 
     computeCompositeRotations(frames,
         rotation2, rotation1,
         angle2, angle1,
         initialVec, frameSize,
-        black, orange, lilac,
+        "#000000","#0091D4", "#EC7300",
         newVec
     );
 
@@ -411,8 +411,8 @@ function histPlot(index) {
     var data = [];
 
     var initVec = new Line([[0,0,0], historyVectors[index]]);
-    data.push(initVec.gObject(black));
-    data.push(initVec.arrowHead(black));
+    data.push(initVec.gObject("#000000"));
+    data.push(initVec.arrowHead("#000000"));
     data.push({type:"scatter3d"}); // trace line
     data.push(sphere);
     data = data.concat(axes);
@@ -459,22 +459,22 @@ function animateRotate() {
     }
     var index = historyIndex % historyLimit;
     if (rotateAxis === "rotateX") {
-        frames1 = computeFrames(rotationX, 0, angle, historyVectors[index], frameSize,true,orange);
+        frames1 = computeFrames(rotationX, 0, angle, historyVectors[index], frameSize,true,"#EC7300");
     } else if (rotateAxis === "rotateY") {
-        frames1 = computeFrames(rotationY, 0, angle, historyVectors[index], frameSize,true,orange);
+        frames1 = computeFrames(rotationY, 0, angle, historyVectors[index], frameSize,true,"#EC7300");
     } else if (rotateAxis === "rotateZ") {
-        frames1 = computeFrames(rotationZ, 0, angle, historyVectors[index], frameSize,true,orange);
+        frames1 = computeFrames(rotationZ, 0, angle, historyVectors[index], frameSize,true,"#EC7300");
     }
     var frames2;
     var plane = document.getElementById('reflectSelect').value;
     var frameSize = 10;
     var index = historyIndex % historyLimit;
     if (plane === "reflectX") {
-        frames2 = computeFrames(scaleX, 1, -1, historyVectors[index], frameSize,true,black);
+        frames2 = computeFrames(scaleX, 1, -1, historyVectors[index], frameSize,true,"#000000");
     } else if (plane === "reflectY") {
-        frames2 = computeFrames(scaleY, 1, -1, historyVectors[index], frameSize,true,black);
+        frames2 = computeFrames(scaleY, 1, -1, historyVectors[index], frameSize,true,"#000000");
     } else if (plane === "reflectZ") {
-        frames2 = computeFrames(scaleZ, 1, -1, historyVectors[index], frameSize,true,black);
+        frames2 = computeFrames(scaleZ, 1, -1, historyVectors[index], frameSize,true,"#000000");
     }
     frames=frames1.concat(frames2)
     planePlot(plane);
@@ -501,7 +501,7 @@ function planePlot(plane) {
             y: [-4, 4],
             z: [[-4, 4],
                 [-4, 4]],
-            colorscale: [[0.0, lilac.slice(0,-1) + ",0.5)"], [1.0, white]],
+            colorscale: [[0.0, "#608bbf"], [1.0, "#ffffff"]],
             opacity: 0.5,
             showscale: false,
             type: "surface"
@@ -512,7 +512,7 @@ function planePlot(plane) {
             y: [0, 0],
             z: [[-4, -4],
                 [4, 4]],
-            colorscale: [[0.0, lilac.slice(0,-1) + ",0.5)"], [1.0, white]],
+            colorscale: [[0.0, "#608bbf"], [1.0, "#ffffff"]],
             opacity: 0.5,
             showscale: false,
             type: "surface"
@@ -523,7 +523,7 @@ function planePlot(plane) {
             y: [-4, 4],
             z: [[0, 0],
                 [0, 0]],
-            colorscale: [[0.0, lilac.slice(0,-1) + ",0.5)"], [1.0, white]],
+            colorscale: [[0.0, "#608bbf"], [1.0, "#ffffff"]],
             opacity: 0.5,
             showscale: false,
             type: "surface"
@@ -563,7 +563,7 @@ function main() {
     //Sliders
 
     $("input[type=range]").each(function () {
-        var displayEl;
+        let displayEl;
         $(this).on('input', function(){
             $("#"+$(this).attr("id") + "Display").text( $(this).val() + $("#"+$(this).attr("id") + "Display").attr("data-unit") );
             $("#"+$(this).attr("id") + "DisplayA2").text( parseFloat($(this).val())*180 + $("#" + $(this).attr("id") + "DisplayA2").attr("data-unit") );
