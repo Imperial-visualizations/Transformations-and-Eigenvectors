@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
     <!--Page Info-->
     <title>Interpreting Eigenvectors</title>
@@ -51,66 +52,67 @@
                     Set your matrix, and you can see the corresponding eigenvectors and eigenvalues for the matrix are:
                 </p>
                 <div class="row">
-                <div class="six columns" id="eigenvector1" style="color: #02893B; font-weight: bold"></div>
-                <div class="six columns" id="eigenvector2" style="color: #EC7300; font-weight: bold"></div>
-            </div>
-                   <p><br>
+                    <div class="six columns" id="eigenvector1" style="color: #02893B; font-weight: bold"></div>
+                    <div class="six columns" id="eigenvector2" style="color: #EC7300; font-weight: bold"></div>
+                </div>
+                <p><br>
                     Align the probe line with the eigenvector lines, then apply the transformation.
                     Notice how then the position vectors always remain on the same line.
                 </p>
 
 
-        </div>
-        <!-- Graph -->
-        <div class="eight columns">
-
-            <div id="graph" style="width: 100%; height: 60vh">
             </div>
-            <br>
-            <div class="row">
-                <div class="six columns">
-                <div>
-                    <label class="slider">
+            <!-- Graph -->
+            <div class="eight columns">
 
-                        <label class="sliderTitle" id="probetitle">Probe line rotation:
-                        </label>
-                        <span class="sliderMin">0</span>
-                        <input id="controller" class="inputs" type="range" value="2" min="0" max="6.28" step="0.01"/>
-                        <span class="sliderMax">2π</span>
-                    </label>
+                <div id="graph" style="width: 100%; height: 60vh">
                 </div>
-                <button id="animator">Apply Transformation</button>
-                <button id="reset">Reset Transformation</button>
+                <br>
+                <div class="row">
+                    <div class="six columns">
+                        <div>
+                            <label class="slider">
+
+                                <label class="sliderTitle" id="probetitle">Probe line rotation:
+                                </label>
+                                <span class="sliderMin">0</span>
+                                <input id="controller" class="inputs" type="range" value="2" min="0" max="6.28"
+                                    step="0.01" />
+                                <span class="sliderMax">2π</span>
+                            </label>
+                        </div>
+                        <button id="animator">Apply Transformation</button>
+                        <button id="reset">Reset Transformation</button>
                     </div>
                     <div class="six columns">
-                            <label class="sliderTitle" id="probetitle">Transformation Matrix:
-                                </label>
-                                <br>
+                        <label class="sliderTitle" id="probetitle">Transformation Matrix:
+                        </label>
+                        <br>
 
-                            <div id="u">
-                                <div class="row">
-                                    <div class="six columns">
-                                            <input type="text" class="inputs" id="Urow0col0" value="1"style="width: 80%">
-                                    </div>
-                                    <div class="six columns">
-                                            <input type="text" class="inputs" id="Urow0col1" value="1" style="width: 80%">
-                                        </div>
+                        <div id="u">
+                            <div class="row">
+                                <div class="six columns">
+                                    <input type="text" class="inputs" id="Urow0col0" value="1" style="width: 80%">
                                 </div>
-                                <div class="row">
-                                        <div class="six columns">
-                                                <input type="text" class="inputs" id="Urow1col0" value="1" style="width: 80%">
-                                        </div>
-                                        <div class="six columns">
-                                                <input type="text" class="inputs" id="Urow1col1" value="0"style="width: 80%">
-                                            </div>
-                                    </div>
+                                <div class="six columns">
+                                    <input type="text" class="inputs" id="Urow0col1" value="1" style="width: 80%">
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="six columns">
+                                    <input type="text" class="inputs" id="Urow1col0" value="1" style="width: 80%">
+                                </div>
+                                <div class="six columns">
+                                    <input type="text" class="inputs" id="Urow1col1" value="0" style="width: 80%">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
             </div>
-            <!--THE BRAINS-->
-            <script src="scripts/Interpreting_Eigenvectors.js"></script>
+        </div>
+        <!--THE BRAINS-->
+        <script src="scripts/Interpreting_Eigenvectors.js"></script>
 </body>
 
 </html>
