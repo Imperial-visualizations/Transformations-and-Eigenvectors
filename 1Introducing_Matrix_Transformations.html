@@ -1,13 +1,12 @@
 <!doctype html>
 <html>
+
 <head>
     <!--Page Info-->
     <title>Introducing Matrix Transformations</title>
     <!--css link-->
-    <link rel="stylesheet"
-          href="styles/skeleton.css">
-    <link rel="stylesheet"
-          href="styles/style.css">
+    <link rel="stylesheet" href="styles/skeleton.css">
+    <link rel="stylesheet" href="styles/style.css">
     <!--Required JS resources-->
     <!--NB: better to have resources before the main body but still works even if they are not-->
     <script src="scripts/plotly-1.47.4.min.js"></script>
@@ -30,155 +29,156 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 </head>
+
 <body>
 
-<div class="container">
-    <div class="row">
+    <div class="container">
+        <div class="row">
 
 
-        <div class="three columns">
-
-                        <h5>Skew Matrix:</h5>
-
-                    <div class="sliderSkew">
-                        <p id="skewmatrix"></p>
-                        <label class="sliderTitle">Skew Angle along x-axis(θ):</label>
-                        <label class="slider">
-                            <input id="skewxID" type="range" value="0" min="0" max="0.25" step="0.025"
-                                    onchange="skewmatrix1()" data-unit="radians"/>
-                            <span class="sliderMin">0</span><span class="sliderMax">π/4</span>
-                        </label>
-
-                        <label class="sliderTitle">Skew Angle along y-axis(θ):</label>
-                        <label class="slider">
-                            <input id="skewyID" type="range" value="0" min="0" max="0.25" step="0.025"
-                                   onchange = "skewmatrix2()" data-unit="radians"/>
-                            <span class="sliderMin">0</span><span class="sliderMax">π/4</span>
-                        </label>
-                        <input class="button-primary" type="submit" value="Apply" onclick="plotSkew()">
-                        <input type="button" value="Reset" onclick="resetStuff()">
-
-
-                    </div>
-
-
-
-                        <h5>Rotation Matrix:</h5>
-                    <div class="sliderRotate">
-                        <label class="sliderTitle">Rotation Angle (θ):</label>
-                        <label class="slider">
-                            <input id="rotateID" type="range" value="0" min="0" max="2" step="0.05"
-                                   onchange="rotatematrix1()" data-unit="radians"/>
-                            <span class="sliderMin">0</span><span class="sliderMax">2π</span>
-                        </label>
-                    </div>
-                    <div>
-                        <input class="button-primary" type="submit" value="Apply" onclick="plotRotate()">
-                        <input type="button" value="Reset" onclick="resetStuff()">
-                    </div>
-                    <!--<div class="sliderRotate">-->
-                        <!--<p id="showtheta"></p>-->
-
-
-                        <!--<div class="row">-->
-                            <!--<div class="six columns">-->
-                                <!--<h5>Trigonometric Form</h5>-->
-                                <!--<p id="rotatematrix2"></p>-->
-                            <!--</div>-->
-                            <!--<div class="six columns">-->
-                                <!--<h5>Decimal Form</h5>-->
-                                <!--<p id="rotatematrix"></p><br>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<input class="button-primary" type="submit" value="Apply" onclick="plotRotate()">-->
-                        <!--<input type="button" value="Reset" onclick="resetStuff()">-->
-
-                    <h5>Scaling Matrix:</h5>
-
-                    <div class="sliderScale">
-                        <label class="sliderTitle">x-scale: <span id="scale1IDDisplay">1</span></label>
-                        <label>
-                            <input id="scale1ID" type="range" value="1" min="-4" max="4" step="0.1"
-                                   onchange="scalematrix1()"/>
-                            <span class="sliderMin">-4</span><span class="sliderMax">4</span>
-                        </label>
-                    </div>
-
-                    <div class="sliderScale">
-                        <label class="sliderTitle">y-scale: <span id="scale2IDDisplay">1</span></label>
-                        <label>
-                            <input id="scale2ID" type="range" value="1" min="-4" max="4" step="0.1"
-                                   onchange="scalematrix2()" "/>
-                            <span class="sliderMin">-4</span><span class="sliderMax">4</span>
-
-                        </label>
-                    </div>
-                    <div>
-                        <input class="button-primary" type="submit" value="Apply" onclick="plotScale()">
-                        <input type="button" value="Reset" onclick="resetStuff()">
-                    </div>
-
-
-            <h6>Overall Transformation:</h6>
-            <p id="overallMatrix"></p>
-        </div>
-                     <div>
-                    <!--<p id="scalematrix"></p>-->
-                    <!--<div class="sliderScale">-->
-                        <input class="button-primary" type="submit" value="Apply" onclick="plotScale()">
-                        <input type="button" value="Reset" onclick="resetStuff()">
-                    <!--</div>-->
-                    </div>
-        <div class="three columns">
-                    <h5>Custom Matrix:</h5>
-                    <p id="tableInput"></p>
-
-                    <div class="sliderCustom">
-                        <input class="button-primary" type="submit" value="Apply" onclick="plotCustom()">
-                        <input type="button" value="Reset" onclick="resetStuff()">
-                    </div>
-
-
+            <div class="four columns">
+                Operators and vectors are mathematical concepts that appear in all parts of the natural sciences, and
+                often appear in high-dimension complex systems. If we focus only on two dimensional matrices and
+                vectors, we can develop a very physical interpretation of them. 
                 <br>
-                <h4>\(|det(A)|=\,\) <span id="determinant"></span></h4>
-        </div>
+                In 2D space, a vector represents the
+                directional distance between a point and some origin. Similarly, a 2x2 matrix represents a geometrical transformation, or operation on the 2D space. In this example we can see a 2x2 matrix applied to four vectors that define the vertices of a square.
+                One by one, applying each type of transformation (or your own custom transformation) you can see the net transform given by:
 
-        <div class="five columns">
-            <div id='graph' style="height:60vh;"></div>
+                <p id="overallMatrix" style="left: 50%"></p>
 
+                The determinant of this matrix, which can be interpreted as the scaling of the area/volume of the square, is:
+                <br>
+                \(|det(A)|=\,\) <span id="determinant"></span>
+            </div>
+
+
+
+            <div class="eight columns">
+                <div class="row">
+
+                    <div class="eight columns">
+
+                        <div id='graph' style="height:65vh;"></div>
+                        <h5>Custom Matrix:</h5>
+                        <div class="row">
+                            <div class="eight columns">
+
+                                <div id="u">
+                                    <div class="row">
+                                        <div class="six columns">
+                                            <input type="text" class="inputs" id="row0col0" value="1"
+                                                style="width: 80%">
+                                        </div>
+                                        <div class="six columns">
+                                            <input type="text" class="inputs" id="row0col1" value="1"
+                                                style="width: 80%">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="six columns">
+                                            <input type="text" class="inputs" id="row1col0" value="1"
+                                                style="width: 80%">
+                                        </div>
+                                        <div class="six columns">
+                                            <input type="text" class="inputs" id="row1col1" value="0"
+                                                style="width: 80%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="four columns">
+                                <div class="sliderCustom">
+                                    <input class="button-primary" type="submit" value="Apply" onclick="plotCustom()">
+                                    <input type="button" value="Reset" onclick="resetStuff()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="four columns">
+                        <div class="row">
+                            <div style="font-size: 18pt">Rotation</div>
+                            <div class="sliderRotate">
+                                <label class="sliderTitle">Rotation Angle (θ): <span id="scale1IDDisplay">0</span></label>
+                                <label class="slider">
+                                        <span class="sliderMin">0</span>
+                                    <input id="rotateID" type="range" value="0" min="0" max="2" step="0.05"
+                                        onchange="rotatematrix1()" data-unit="radians" />
+                                    <span class="sliderMax">2π</span>
+                                </label>
+                            </div>
+                            <div>
+                                <input class="button-primary" type="submit" value="Apply" onclick="plotRotate()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="font-size: 18pt">Scaling</div>
+
+                            <div class="sliderScale">
+                                <label class="sliderTitle">x-scale: <span id="scale1IDDisplay">1</span></label>
+                                <label>
+                                    <span class="sliderMin">-2</span>
+                                    <input id="scale1ID" type="range" value="1" min="-2" max="2" step="0.1"
+                                        onchange="scalematrix1()" />
+                                    <span class="sliderMax">2</span>
+                                </label>
+                            </div>
+
+                            <div class="sliderScale">
+                                <label class="sliderTitle">y-scale: <span id="scale2IDDisplay">1</span></label>
+                                <label>
+                                    <span class="sliderMin">-2</span>
+                                    <input id="scale2ID" type="range" value="1" min="-2" max="2" step="0.1"
+                                        onchange="scalematrix2()" "/>
+                                        <span class=" sliderMax">2</span>
+
+                                </label>
+                            </div>
+                            <div>
+                                <input class="button-primary" type="submit" value="Apply" onclick="plotScale()">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="font-size: 18pt">Skew</div>
+
+                            <div class="sliderSkew">
+                                <label class="sliderTitle">Skew Angle along x-axis(θ):</label>
+                                <label class="slider">
+                                    <span class="sliderMin">$0$</span>
+                                    <input id="skewxID" type="range" value="0" min="0" max="0.25" step="0.025"
+                                        onchange="skewmatrix1()" data-unit="radians" />
+                                    <span class="sliderMax">$\frac{π}{4}$</span>
+                                </label>
+
+                                <label class="sliderTitle">Skew Angle along y-axis(θ):</label>
+                                <label class="slider">
+                                    <span class="sliderMin">$0$</span>
+                                    <input id="skewyID" type="range" value="0" min="0" max="0.25" step="0.025"
+                                        onchange="skewmatrix2()" data-unit="radians" />
+                                    <span class="sliderMax">$\frac{π}{4}$</span>
+                                </label>
+                                <input class="button-primary" type="submit" value="Apply" onclick="plotSkew()">
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
         </div>
+    </div>
     </div>
 
 
-             <h6>The (lively updating) transformation matrix.</h6>
-                        <div>
-                        <table class="matrix" id="rotateTable1">
-                            <tbody>
-                            <tr>
-                                <td align="center">
-                                    1
-                                </td>
-                                <td align="center">
-                                    0
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">
-                                    0
-                                </td>
-                                <td align="center">
-                                    1
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-</div>
 
 
-
-
-<!--THE BRAINS-->
-<script src="scripts/Introducing_Matrix_Transformations.js"></script>
+    <!--THE BRAINS-->
+    <script src="scripts/Introducing_Matrix_Transformations.js"></script>
 </body>
+
 </html>

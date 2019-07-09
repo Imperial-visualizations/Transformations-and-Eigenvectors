@@ -1,10 +1,11 @@
-math.config({matrix: "Matrix"})
+/*jshint esversion: 6 */ 
+math.config({ matrix: "Matrix" });
 // Global variables for vertices and matrix display
 var vertex1 = [1, 0];
 var vertex2 = [1, 1];
 var vertex3 = [0, 1];
-var my_matrix = math.matrix([[1, 0], [0, 1]])
-var det = 1
+var my_matrix = math.matrix([[1, 0], [0, 1]]);
+var det = 1;
 
 /**
  * Returns a rotation matrix
@@ -33,8 +34,8 @@ function rotation(vec, th) {
     for (var i = 0; i < N; i++) {
         var newvec = math.multiply(rotmat(t[i]), myvec);
         // Pull out x and y components
-        x.push(newvec._data[0])
-        y.push(newvec._data[1])
+        x.push(newvec._data[0]);
+        y.push(newvec._data[1]);
     }
     return [x, y];
 }
@@ -62,7 +63,7 @@ function myScale() {
         var x = numeric.linspace(vec[0], arguments[1] * vec[0], N);
         var y = numeric.linspace(vec[1], arguments[2] * vec[1], N);
     }
-    return [x, y]
+    return [x, y];
 }
 
 /** Function which returns arrays in same form as rotate() and myScale() but for skew transformation
@@ -70,27 +71,21 @@ function myScale() {
  * @param {array} - length 2 array
  * @param {axis} - 0 or 1 indicating skew in x or y direction
  */
-function skew(vec, axis) {
+function skew(vec) {
     // Number of frames
     var N = 50;
     // If axis = 0 then skew in x-direction
-     var skewx = document.getElementById('skewxID').value
-     var skewy = document.getElementById('skewyID').value
+    var skewx = document.getElementById('skewxID').value;
+    var skewy = document.getElementById('skewyID').value;
 
-    if (axis === 0) {
-        var A = [[1, Math.tan(skewx*Math.PI)], [0, 1]];
+        let A = [[1, Math.tan(skewx * Math.PI)], [0, 1]];
+        let B = [[1, 0], [Math.tan(skewy * Math.PI), 1]];
+        A = math.multiply(B,A);
         var newvec = math.multiply(A, math.matrix(vec));
         var x = numeric.linspace(vec[0], newvec._data[0], N);
         var y = numeric.linspace(vec[1], newvec._data[1], N);
-        return [x, y]
-    }
-    else if (axis === 1) {
-        var A = [[1, 0], [Math.tan(skewy*Math.PI), 1]];
-        var newvec = math.multiply(A, math.matrix(vec));
-        var x = numeric.linspace(vec[0], newvec._data[0], N);
-        var y = numeric.linspace(vec[1], newvec._data[1], N);
-        return [x, y]
-    }
+        return [x, y];
+    
 }
 
 /** Custom matrix transformation, arguments form matrix [[a,b],[c,d]]
@@ -106,7 +101,7 @@ function custom(vec, a, b, c, d) {
     var newvec = math.multiply(A, math.matrix(vec));
     var x = numeric.linspace(x0, newvec._data[0], N);
     var y = numeric.linspace(y0, newvec._data[1], N);
-    return [x, y]
+    return [x, y];
 }
 
 /** Convert x,y arrays returned from functions in json format for animate
@@ -117,7 +112,7 @@ function jsonFormat(x, y) {
     var myJson = [];
     var N = x.length;
     for (var i = 0; i < N; i++) {
-        myJson.push({"data": [{"x": [x[i], 0], "y": [y[i], 0]}], "name": 'frame' + parseInt(i)})
+        myJson.push({ "data": [{ "x": [x[i], 0], "y": [y[i], 0] }], "name": 'frame' + parseInt(i) });
     }
     return myJson;
 }
@@ -137,17 +132,17 @@ function squareTrans() {
         var th = arguments[1];
         my_matrix = math.multiply(rotmat(th), my_matrix);
         var [x0, y0] = rotation(arguments[2], th);
-        vertex1 = [x0[x0.length - 1], y0[y0.length - 1]]
+        vertex1 = [x0[x0.length - 1], y0[y0.length - 1]];
         var [x1, y1] = rotation(arguments[3], th);
-        vertex2 = [x1[x1.length - 1], y1[y1.length - 1]]
+        vertex2 = [x1[x1.length - 1], y1[y1.length - 1]];
         var [x2, y2] = rotation(arguments[4], th);
-        vertex3 = [x2[x2.length - 1], y2[y2.length - 1]]
-        return [x0, x1, x2, y0, y1, y2, my_matrix]
+        vertex3 = [x2[x2.length - 1], y2[y2.length - 1]];
+        return [x0, x1, x2, y0, y1, y2, my_matrix];
     } else if (arguments[0] === "scale") {
         // If only 1 scale argument given
         if (arguments.length === 5) {
             var s = arguments[1];
-            my_matrix = math.multiply([[s, 0], [0, s]], my_matrix)
+            my_matrix = math.multiply([[s, 0], [0, s]], my_matrix);
             var [x0, y0] = myScale(arguments[2], s);
             vertex1 = [x0[x0.length - 1], y0[y0.length - 1]]
             var [x1, y1] = myScale(arguments[3], s);
@@ -164,35 +159,32 @@ function squareTrans() {
             var [x1, y1] = myScale(arguments[4], s1, s2);
             vertex2 = [x1[x1.length - 1], y1[y1.length - 1]]
             var [x2, y2] = myScale(arguments[5], s1, s2);
-            vertex3 = [x2[x2.length - 1], y2[y2.length - 1]]
-            return [x0, x1, x2, y0, y1, y2]
+            vertex3 = [x2[x2.length - 1], y2[y2.length - 1]];
+            return [x0, x1, x2, y0, y1, y2];
         }
     } else if (arguments[0] === "custom") {
         var a = arguments[1], b = arguments[2],
             c = arguments[3], d = arguments[4];
-        my_matrix = math.multiply([[a, b], [c, d]], my_matrix)
+        my_matrix = math.multiply([[a, b], [c, d]], my_matrix);
         var [x0, y0] = custom(arguments[5], a, b, c, d);
-        vertex1 = [x0[x0.length - 1], y0[y0.length - 1]]
+        vertex1 = [x0[x0.length - 1], y0[y0.length - 1]];
         var [x1, y1] = custom(arguments[6], a, b, c, d);
-        vertex2 = [x1[x1.length - 1], y1[y1.length - 1]]
+        vertex2 = [x1[x1.length - 1], y1[y1.length - 1]];
         var [x2, y2] = custom(arguments[7], a, b, c, d);
-        vertex3 = [x2[x2.length - 1], y2[y2.length - 1]]
+        vertex3 = [x2[x2.length - 1], y2[y2.length - 1]];
         return [x0, x1, x2, y0, y1, y2]
     } else if (arguments[0] === "skew") {
-        var skewx = document.getElementById('skewxID').value
-        var skewy = document.getElementById('skewyID').value
+        var skewx = document.getElementById('skewxID').value;
+        var skewy = document.getElementById('skewyID').value;
 
         var axis = arguments[1];
-        if (axis === 0) {
-            my_matrix = math.multiply([[1, Math.tan(skewx*Math.PI)], [0, 1]], my_matrix)
-        } else if (axis === 1) {
-            my_matrix = math.multiply([[1, 0], [Math.tan(skewy*Math.PI), 1]], my_matrix)
-        }
-        var [x0, y0] = skew(arguments[2], axis);
+        my_matrix = math.multiply([[1, Math.tan(skewx * Math.PI)], [0, 1]], my_matrix);
+        my_matrix = math.multiply([[1, 0], [Math.tan(skewy * Math.PI), 1]], my_matrix);
+        var [x0, y0] = skew(arguments[1]);
         vertex1 = [x0[x0.length - 1], y0[y0.length - 1]]
-        var [x1, y1] = skew(arguments[3], axis);
+        var [x1, y1] = skew(arguments[2]);
         vertex2 = [x1[x1.length - 1], y1[y1.length - 1]]
-        var [x2, y2] = skew(arguments[4], axis);
+        var [x2, y2] = skew(arguments[3]);
         vertex3 = [x2[x2.length - 1], y2[y2.length - 1]]
         return [x0, x1, x2, y0, y1, y2]
     }
@@ -222,15 +214,16 @@ function jsonFormat2(x0, x1, x2, y0, y1, y2) {
  */
 var layout = {
     autosize: true,
-    xaxis: {range: [-4, 4], title: "x"},
-    yaxis: {range: [-4, 4], title: "y"},
-    margin: {l: 30, r: 30, t: 30, b: 30},
-    font: {
-        family: "Lato",
-        size: 12,
-        color: "#003E74",
-        weight: 900
-    }
+    showlabels: false,
+    margin: { l: 20, r: 0, t: 0, b: 20 },
+    xaxis: {
+        range: [-5, 5],
+        label: "x",
+    },
+    yaxis: {
+        label: "y",
+        scaleanchor: "x",
+    },
 };
 
 
@@ -239,12 +232,12 @@ var layout = {
  */
 function squarePlotter() {
     Plotly.newPlot('graph', [{
-            x: [0, 1, 1, 0, 0],
-            y: [0, 0, 1, 1, 0],
-            line: {simplify: false, color: 'rgb(0,62,116)'},
-            fill: 'tonexty',
-            mode: 'lines'
-        }],
+        x: [0, 1, 1, 0, 0],
+        y: [0, 0, 1, 1, 0],
+        line: { simplify: false, color: '#EC7300' },
+        fill: 'tonexty',
+        mode: 'lines'
+    }],
         layout
     )
 }
@@ -255,19 +248,11 @@ function squarePlotter() {
  * @param {float} axis - axis of skew
  * @param {array} vertex - array for vertex coordinate
  */
-function plotterSkew(axis, vertex1, vertex2, vertex3) {
-    var myArray = squareTrans("skew", axis, vertex1, vertex2, vertex3);
+function plotterSkew(vertex1, vertex2, vertex3) {
+    var myArray = squareTrans("skew", vertex1, vertex2, vertex3);
     var frames = jsonFormat2(...myArray);
     // Initial plot
-    Plotly.newPlot('graph', [{
-            x: frames[0].data[0].x,
-            y: frames[0].data[0].y,
-            line: {simplify: false, color: 'rgb(0,62,116)'},
-            fill: 'tonexty',
-            mode: 'lines'
-        }],
-        layout
-    );
+
 
     // Animation
     Plotly.animate('graph', frames, {
@@ -291,16 +276,6 @@ function plotterSkew(axis, vertex1, vertex2, vertex3) {
 function plotterScale(s1, s2, vertex1, vertex2, vertex3) {
     var myArray = squareTrans("scale", s1, s2, vertex1, vertex2, vertex3);
     var frames = jsonFormat2(...myArray);
-    // Initial plot
-    Plotly.newPlot('graph', [{
-            x: frames[0].data[0].x,
-            y: frames[0].data[0].y,
-            line: {simplify: false, color: 'rgb(0,62,116)'},
-            fill: 'tonexty',
-            mode: 'lines'
-        }],
-        layout
-    );
 
     // Animation
     Plotly.animate('graph', frames, {
@@ -323,16 +298,6 @@ function plotterScale(s1, s2, vertex1, vertex2, vertex3) {
 function plotterRotate(th, vertex1, vertex2, vertex3) {
     var myArray = squareTrans("rotate", th, vertex1, vertex2, vertex3);
     var frames = jsonFormat2(...myArray);
-    // Initial plot
-    Plotly.newPlot('graph', [{
-            x: frames[0].data[0].x,
-            y: frames[0].data[0].y,
-            line: {simplify: false, color: 'rgb(0,62,116)'},
-            fill: 'tonexty',
-            mode: 'lines'
-        }],
-        layout
-    );
 
     // Animation
     Plotly.animate('graph', frames, {
@@ -356,16 +321,6 @@ function plotterRotate(th, vertex1, vertex2, vertex3) {
 function plotterCustom(a, b, c, d, vertex1, vertex2, vertex3) {
     var myArray = squareTrans("custom", a, b, c, d, vertex1, vertex2, vertex3);
     var frames = jsonFormat2(...myArray);
-    // Initial plot
-    Plotly.newPlot('graph', [{
-            x: frames[0].data[0].x,
-            y: frames[0].data[0].y,
-            line: {simplify: false, color: 'rgb(0,62,116)'},
-            fill: 'tonexty',
-            mode: 'lines'
-        }],
-        layout
-    );
 
     // Animation
     Plotly.animate('graph', frames, {
@@ -406,28 +361,26 @@ function makeTableHTML(myArray) {
  * @param {array} myVec - length 2 array
  */
 function makeMatrixEqnHTML(myMatrix, myVec) {
-    var result = "<table class='matrixWrapper'><tbody><tr><td>"
-    var round = roundedmat(myMatrix)
+    var result = "<table class='matrixWrapper'><tbody>";
+    var round = roundedmat(myMatrix);
     result += makeTableHTML(round);
-    result += "</td><td>&nbspx&nbsp</td><td>"
+    result += "</td><td>&nbspx&nbsp</td><td>";
     result += makeTableHTML(myVec)
     result += "</td><td>&nbsp=&nbsp</td><td>"
     var answer = math.multiply(myMatrix, myVec)
     result += makeTableHTML(roundedmat(answer))
-    result += "</td></tr></tbody></table>"
+    result += "</tbody></table>"
     return result
 }
 
 function makeMatrixEqnHTML2(myMatrix) {
-    var result = "<table class='matrixWrapper'><tbody><tr><td>"
-    result += "A&nbsp=&nbsp</td><td>"
+    var result = "<table class='matrixWrapper'><tbody><tr>"
     var round = roundedmat(myMatrix)
     result += makeTableHTML(round);
-    result += "</td>"
-//    result += makeTableHTML(myVec)
-//    result += "</td>"
-//    var answer = math.multiply(myMatrix, myVec)
-//    result += makeTableHTML(roundedmat(answer))
+    //    result += makeTableHTML(myVec)
+    //    result += "</td>"
+    //    var answer = math.multiply(myMatrix, myVec)
+    //    result += makeTableHTML(roundedmat(answer))
     result += "</tr></tbody></table>"
     return result
 }
@@ -442,7 +395,7 @@ function makeTableInput(m, n) {
         result += "<tr>";
         for (var j = 0; j < n; j++) {
             if (i === j) {
-                result += "<td>" + "<input type='number' id='row" + String(i) + "col" + String(j) +
+                result += "<td>" + "<input syle= 'width:100' type='number' id='row" + String(i) + "col" + String(j) +
                     "' oninput='customMatrix()'" + " value='1'" + "'>" + "</td>";
             } else {
                 result += "<td>" + "<input type='number' id='row" + String(i) + "col" + String(j) +
@@ -462,13 +415,6 @@ function main() {
     squarePlotter();
     rotateMatrix();
     scaleMatrix();
-    $("#custommatrix").append(makeTableHTML([[1, 0], [0, 1]]))
-    if ($("#x").is(":checked")) {
-        $("#skewmatrix").html(makeTableHTML([[1, 1], [0, 1]]));
-    }
-    if ($("#y").is(":checked")) {
-        $("#skewmatrix").html(makeTableHTML([[1, 0], [1, 1]]));
-    }
     var myTable = makeTableInput(2, 2)
     $("#tableInput").append(myTable)
     $("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
@@ -495,9 +441,9 @@ function plotSkew() {
     var skewx = document.getElementById('skewxID').value
     var skewy = document.getElementById('skewyID').value
 
-    plotterSkew(0, vertex1, vertex2, vertex3);
+    plotterSkew(vertex1, vertex2, vertex3);
     //$("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
-    plotterSkew(1, vertex1, vertex2, vertex3);
+
     $("#overallMatrix").html(makeMatrixEqnHTML2(my_matrix._data))
     printDet()
 }
@@ -560,7 +506,7 @@ function rotateMatrix() {
     $("#rotatematrix").html(makeTableHTML(rotmatrix));
     th = Math.round(th * 100) / 100;
     $("#rotatematrix2").html(makeTableHTML([["cos(" + String(x) + "π" + ")", "-sin(" + String(x) + "π" + ")"],
-        ["sin(" + String(x) + "π" + ")", "cos(" + String(x) + "π" + ")"]]));
+    ["sin(" + String(x) + "π" + ")", "cos(" + String(x) + "π" + ")"]]));
     $("#showtheta").html("θ = " + th + " rad or θ =  " + x.toString() + "π rad")
 }
 
@@ -618,49 +564,49 @@ function resetStuff() {
 }
 
 // for the lively updating transformation matrix (by Jung)
-function skewmatrix1(){
+function skewmatrix1() {
     angleSelector = document.getElementById("skewxID").value
 
-          rotateTable1.rows[0].cells[0].innerHTML = 1
-          rotateTable1.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
-          rotateTable1.rows[1].cells[0].innerHTML = 0
-          rotateTable1.rows[1].cells[1].innerHTML = 1
+    rotateTable1.rows[0].cells[0].innerHTML = 1
+    rotateTable1.rows[0].cells[1].innerHTML = "tan(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = 1
 }
 
-function skewmatrix2(){
+function skewmatrix2() {
     angleSelector = document.getElementById("skewyID").value
 
-          rotateTable1.rows[0].cells[0].innerHTML = 1
-          rotateTable1.rows[0].cells[1].innerHTML = 0
-          rotateTable1.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
-          rotateTable1.rows[1].cells[1].innerHTML = 1
+    rotateTable1.rows[0].cells[0].innerHTML = 1
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = "tan(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[1].innerHTML = 1
 }
 
-function rotatematrix1(){
+function rotatematrix1() {
     angleSelector = document.getElementById("rotateID").value
 
-          rotateTable1.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
-          rotateTable1.rows[0].cells[1].innerHTML = "-sin(" + angleSelector + "π)"
-          rotateTable1.rows[1].cells[0].innerHTML = "sin(" + angleSelector + "π)"
-          rotateTable1.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[0].innerHTML = "cos(" + angleSelector + "π)"
+    rotateTable1.rows[0].cells[1].innerHTML = "-sin(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[0].innerHTML = "sin(" + angleSelector + "π)"
+    rotateTable1.rows[1].cells[1].innerHTML = "cos(" + angleSelector + "π)"
 }
 
-function scalematrix1(){
+function scalematrix1() {
     angleSelector = document.getElementById("scale1ID").value
 
-          rotateTable1.rows[0].cells[0].innerHTML = angleSelector
-          rotateTable1.rows[0].cells[1].innerHTML = 0
-          rotateTable1.rows[1].cells[0].innerHTML = 0
-          rotateTable1.rows[1].cells[1].innerHTML = 1
+    rotateTable1.rows[0].cells[0].innerHTML = angleSelector
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = 1
 }
 
-function scalematrix2(){
+function scalematrix2() {
     angleSelector = document.getElementById("scale2ID").value
 
-          rotateTable1.rows[0].cells[0].innerHTML = 1
-          rotateTable1.rows[0].cells[1].innerHTML = 0
-          rotateTable1.rows[1].cells[0].innerHTML = 0
-          rotateTable1.rows[1].cells[1].innerHTML = angleSelector
+    rotateTable1.rows[0].cells[0].innerHTML = 1
+    rotateTable1.rows[0].cells[1].innerHTML = 0
+    rotateTable1.rows[1].cells[0].innerHTML = 0
+    rotateTable1.rows[1].cells[1].innerHTML = angleSelector
 }
 
 
