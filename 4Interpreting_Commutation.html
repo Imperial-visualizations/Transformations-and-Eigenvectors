@@ -123,7 +123,8 @@
             A
         </font>
     </h3>
-    <input class="button-primary" id="commuteAnimate" type="submit" value="Play"><br>
+    <input class="button-primary" id="commuteAnimate" type="submit" value="Play">
+    <input class="button-primary" id="reset" type="submit" value="Reset"><br><br>
     <div class="popup" onclick="checkCommute()"><h5><strong>Click me to see if commute!</strong></h5>
         <span class="popuptext" id="commute">commute!</span>
         <span class="popuptext" id="noncommute">not commute!</span>
@@ -140,27 +141,30 @@
                         <h5>
                     Vector 1:  
                 </h5>
-                <select id="typeSelect1">
-                        <option value="Rotation">
+                <select id="TransformationSelector1">
+                        <option value="Rotation1">
                             Rotation
                         </option>
-                        <option value="Reflection">
+                        <option value="Reflection1">
                             Reflection
                         </option>
                     </select>
                 about 
-                <select id="typeSelect1">
-                        <option value="Rotation">
+                <select id="TransformationRelative1">
+                        <option value="X">
                             X axis
                         </option>
-                        <option value="Reflection">
+                        <option value="Y">
                             Y axis
+                        </option>
+                        <option value="Z">
+                            Z axis
                         </option>
                     </select>
                 <div class="rotateCommute">
                     <label class="sliderTitle">
                         Angle:
-                    </label>
+                    </label><br>
                     <label class="slider">
 
                             <span class="sliderMin">
@@ -180,20 +184,31 @@
                             
                         </h5>
 
-                        <select id="typeSelect1">
-                                <option value="Rotation">
+                        <select id="TransformationSelector2">
+                                <option value="Rotation2">
                                     Rotation
                                 </option>
-                                <option value="Reflection">
+                                <option value="Reflection2">
                                     Reflection
                                 </option>
                             </select>
                             about
+                      <select id="TransformationRelative2">
+                        <option value="X">
+                            X axis
+                        </option>
+                        <option value="Y">
+                            Y axis
+                        </option>
+                        <option value="Z">
+                            Z axis
+                        </option>
+                    </select>
                     </label>
 
                     <label class="sliderTitle">
                         <strong>Angle:</strong>
-                    </label>
+                    </label><br>
                     
 
                             <span class="sliderMin">
@@ -210,60 +225,7 @@
 
          </div>
                 <!--Rotation-->
-                <h5>Rotate</h5>
-                    <div class="rotate3D">
-                        <strong>
-                            Select Axis:
-                        </strong>
-                        <select id="rotateSelect">
-                            <option value="rotateX">
-                                X Axis
-                            </option>
-                            <option value="rotateY">
-                                Y Axis
-                            </option>
-                            <option value="rotateZ">
-                                Z Axis
-                            </option>
-                        </select>
-                        <label class="sliderTitle">
-                            Angle:
-                        </label>
-                        
-                        <label class="slider">
-                                <span class="sliderMin">
-                                        -2π
-                                       </span>
 
-                            <input class="inputs" id="rotator" max="2" min="-2" step="0.125" type="range" value="0.25">
-
-                            <span class="sliderMax">
-         2π
-        </span>
-                        </label>
-                    </div>
-                        <h5>Reflect</h5>
-                <div class="reflect">
-                    <strong>
-                        Select Plane:
-                    </strong>
-                    <select id="reflectSelect">
-                        <option value="reflectX">
-                            X = 0
-                        </option>
-                        <option value="reflectY">
-                            Y = 0
-                        </option>
-                        <option value="reflectZ">
-                            Z = 0
-                        </option>
-                    </select>
-                </div>
-                    <div class="playButtons">
-                    <input class="button-primary" id="animate" type="submit" value="Play">
-                    <input id="undo" type="button" value="⤺ Undo">
-                    <input id="reset" type="button" value="Reset to (-2,-2,2)">
-                    </div>
                     <p id="matrixDisplay">
                     </p>
 

@@ -46,7 +46,7 @@ function reset() {
     isPaused = true;
     animationIndex = 0;
     historyPlot(animationIndex);
-    document.getElementById(playID).value = (isPaused) ? "Play":"Pause";
+    document.getElementById(playID).value = (isPaused) ? "Play":"Play";
     updateSlider();
     return;
 }
@@ -72,7 +72,7 @@ function historyPlot(index) {
         }
     );
     isPaused = true;
-    document.getElementById(playID).value = (isPaused) ? "Play":"Pause";
+    document.getElementById(playID).value = (isPaused) ? "Play":"Play";
     return;
 }
 
@@ -81,7 +81,7 @@ function update() {
     animationIndex++;
     if (animationIndex === animationLimit) {
         isPaused = true;
-        document.getElementById(playID).value = "Reset";
+        document.getElementById(playID).value = "Play";
         return;
     }
     if (!isPaused) {
@@ -132,7 +132,7 @@ function startAnimation() {
 
     if (animationIndex < animationLimit){
         isPaused = !isPaused;
-        document.getElementById(playID).value = (isPaused) ? "Play":"Pause";
+        document.getElementById(playID).value = (isPaused) ? "Play":"Play";
         requestAnimationFrame(update);
     } else {
         reset();
