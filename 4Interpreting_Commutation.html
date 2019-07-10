@@ -133,13 +133,13 @@
 
          <div class="eight columns">
              <div class="row">
-                <div id="graph">
+                <div id="graph" style="height: 60vh;">
                     </div>
                 </div>
                 <div class="row">
                     <div class="six columns">
-                        <h5>
-                    Vector 1:  
+                        <h5 style="color: #0091D4;">
+                    Transform A:  
                 </h5>
                 <select id="TransformationSelector1">
                         <option value="Rotation1">
@@ -161,7 +161,7 @@
                             Z axis
                         </option>
                     </select>
-                <div class="rotateCommute">
+                <div class="rotateCommute" id="slider1">
                     <label class="sliderTitle">
                         Angle:
                     </label><br>
@@ -179,8 +179,8 @@
 
                 </div>
                 <div class="six columns">
-                        <h5>
-                        Vector 2:
+                        <h5 style="color: #EC7300">
+                        Transform B:
                             
                         </h5>
 
@@ -205,6 +205,7 @@
                         </option>
                     </select>
                     </label>
+                    <div class="rotateCommute" id="slider2">
 
                     <label class="sliderTitle">
                         <strong>Angle:</strong>
@@ -222,6 +223,7 @@
 
                     </div>
                 </div>
+            </div>
 
          </div>
                 <!--Rotation-->

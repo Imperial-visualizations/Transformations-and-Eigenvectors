@@ -117,14 +117,14 @@ function computeCommute(transformation1, transformation2,start1, end1, start2, e
         transformation1, transformation2,
         start1, end1, start2, end2,
         initialVec, frameSize,
-        white, lilac, orange
+        white, "#0091D4", "#EC7300"
     );
 
     computeCompositeTransformations(frames,
         transformation2, transformation1,
         start2, end2, start1, end1,
         initialVec, frameSize,
-        black, orange, lilac,
+        black, "#EC7300", "#0091D4",
         newVec
     );
 
@@ -344,6 +344,22 @@ function checkCommute(){
 
 function main() {
     //Sliders
+    $("#TransformationSelector1").on("change",function(){
+            if($("#TransformationSelector1").val()==="Reflection1"){
+                $("#slider1").hide();
+            }else{
+                $("#slider1").show();
+            }
+        
+    });
+    $("#TransformationSelector2").on("change",function(){
+        if($("#TransformationSelector2").val()==="Reflection2"){
+            $("#slider2").hide();
+        }else{
+            $("#slider2").show();
+        }
+    
+});
 
     $("input[type=range]").each(function () {
         let displayEl;
