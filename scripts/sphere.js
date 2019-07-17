@@ -213,7 +213,7 @@ function animateCommute() {
             y: [0, 0],
             z: [[-4, -4],
                 [4, 4]],
-            colorscale: [[0.0, "#608bbf"], [1.0, "#ffffff"]],
+            colorscale: [[0.0, "#f7fcfb"], [1.0, "#f7fcfb"]],
             opacity: 0.5,
             showscale: false,
             type: "surface"
@@ -307,8 +307,6 @@ function animateCommute() {
 }
 
 function checkCommute(){
-
-
     var transformationSelector1 = document.getElementById('TransformationSelector1').value;
     var transformationSelector2 = document.getElementById('TransformationSelector2').value;
     var rotateAxis1 = document.getElementById('TransformationRelative1').value
@@ -317,27 +315,30 @@ function checkCommute(){
         if(transformationSelector2==="Rotation2"){
 
             if (rotateAxis1 === rotateAxis2){
-                var popup = document.getElementById("commute");
+                $("#determinecommute").html('do');
+                $("#determinecommute").css('color', 'green');
             }else{
-                var popup = document.getElementById("noncommute");
+                $("#determinecommute").html('do not');
+                $("#determinecommute").css('color', 'red');
             }
         }else{
-            var popup = document.getElementById("noncommute");
+            $("#determinecommute").html('do not');
+            $("#determinecommute").css('color', 'red');
         }
     }else if(transformationSelector1==="Reflection1"){
         if(transformationSelector2==="Reflection2"){
-            var popup = document.getElementById("commute");
+            $("#determinecommute").html('do');
+            $("#determinecommute").css('color', 'green');
         }else if (transformationSelector2==="Rotation2"){
             if (rotateAxis1 === rotateAxis2){
-                var popup = document.getElementById("commute");
+                $("#determinecommute").html('do');
+                $("#determinecommute").css('color', 'green');
             }else{
-                var popup = document.getElementById("noncommute");
+                $("#determinecommute").html('do not');
+                $("#determinecommute").css('color', 'red');
             }
         }
     }
-
-
-    popup.classList.toggle("show");
 }
 
 
@@ -345,6 +346,7 @@ function checkCommute(){
 function main() {
     //Sliders
     $("#TransformationSelector1").on("change",function(){
+        checkCommute();
             if($("#TransformationSelector1").val()==="Reflection1"){
                 $("#slider1").hide();
             }else{
@@ -353,6 +355,7 @@ function main() {
         
     });
     $("#TransformationSelector2").on("change",function(){
+        checkCommute();
         if($("#TransformationSelector2").val()==="Reflection2"){
             $("#slider2").hide();
         }else{
@@ -364,6 +367,7 @@ function main() {
     $("input[type=range]").each(function () {
         let displayEl;
         $(this).on('input', function(){
+            checkCommute();
             $("#"+$(this).attr("id") + "Display").text( $(this).val() + $("#"+$(this).attr("id") + "Display").attr("data-unit") );
             $("#"+$(this).attr("id") + "DisplayA2").text( parseFloat($(this).val())*180 + $("#" + $(this).attr("id") + "DisplayA2").attr("data-unit") );
 
@@ -383,6 +387,7 @@ function main() {
 
 
     $("input[type=submit]").click(function () {
+        checkCommute();
         //log(this);
         var idName = $(this).attr("id");
         if (idName === "commuteAnimate") {
@@ -391,6 +396,7 @@ function main() {
         });
 
     $("input[type=submit]").click(function () {
+        checkCommute();
      var idName = $(this).attr("id");
      if (idName === "reset"){
             Plotly.purge("graph");

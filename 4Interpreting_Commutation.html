@@ -28,64 +28,6 @@
 <script type="text/javascript" src="scripts/MathJax-master/MathJax.js">
 </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<style>
-/* Popup container - can be anything you want */
-.popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-/* The actual popup */
-.popup .popuptext {
-  visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
-}
-</style>
 </head>
 <body>
 
@@ -99,11 +41,12 @@
          <div class="four columns">
              <p>
                  In addition to eigenvectors and eigenvalues, other unique properties of matrices and vectors can be visualised geometrically. Commutation is a shared property of two matrices defined by:
-                $$ A \dot B = B \dot A $$
+                $$ \bf{\color{#0091D4}A\color{#EC7300}B = \color{#EC7300}B\color{#0091D4}A} $$
                  Geometrically speaking, this means that applying the spacial transformations A then B is identical to applying the transformation B then A. 
-             </p>
+                 Select your own custom two transforms to the initial black vector and press play! You will see that the final white and black vectors represent:
+                </p>
   <!--<input type="button" value="Reset", onclick="reset()">-->
-  <h3>
+  <h5>
         △:
         <font style="color:#0091D4;">
             A
@@ -112,8 +55,8 @@
         <font style="color:#EC7300">
             B
         </font>
-    </h3>
-    <h3>
+    </h5>
+    <h5>
         ▲:
         <font style="color:#EC7300">
             B
@@ -122,19 +65,23 @@
         <font style="color:#0091D4;">
             A
         </font>
-    </h3>
-    <input class="button-primary" id="commuteAnimate" type="submit" value="Play">
-    <input class="button-primary" id="reset" type="submit" value="Reset"><br><br>
-    <div class="popup" onclick="checkCommute()"><h5><strong>Click me to see if commute!</strong></h5>
-        <span class="popuptext" id="commute">commute!</span>
-        <span class="popuptext" id="noncommute">not commute!</span>
-        </div>
+    </h5>
+    <p>
+        If these white and black vectors end up at the same point then the two transformations commute! In the case of the two transformations you have selected, they 
+        <span id="determinecommute" style="color: green; display: inline-block">do </span> commute.
+       </p>
          </div>
 
          <div class="eight columns">
              <div class="row">
+                 <div class="nine columns">
                 <div id="graph" style="height: 60vh;">
                     </div>
+                </div>
+                <div class="three columns">
+                        <input class="button-primary" id="commuteAnimate" type="submit" value="Play"><br>
+                        <input class="button-primary" id="reset" type="submit" value="Reset">
+                </div>
                 </div>
                 <div class="row">
                     <div class="six columns">
@@ -230,22 +177,6 @@
 
                     <p id="matrixDisplay">
                     </p>
-
-
-                    <!--Commute?-->
-
-
-                <!--Reflection-->
-
-
-
-
-
-
-
-            <style="text-align:center">
-
-
             
          </div>
         <div class="six columns">

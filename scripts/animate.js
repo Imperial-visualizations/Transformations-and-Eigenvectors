@@ -58,7 +58,6 @@ function reset() {
 function historyPlot(index) {
     animationIndex = index;
     var data = [];
-    console.log(animationFrames)
     for (var i = 0, n = animationFrames[index].data.length; i < n; ++i) {
         data.push(animationFrames[index].data[i]);
     }

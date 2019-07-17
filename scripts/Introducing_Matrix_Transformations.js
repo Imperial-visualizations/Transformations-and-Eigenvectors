@@ -477,20 +477,13 @@ function plotCustom() {
 /** Display values above sliders for scale tab
  * @JQuery method
  */
-$("#scale1ID").each(function () {
+$(".slider").each(function () {
     $(this).on('input', function () {
         $("#" + $(this).attr("id") + "Display").text($(this).val());
     });
 });
 
-/** Display values above sliders for scale tab
- * @JQuery method
- */
-$("#scale2ID").each(function () {
-    $(this).on('input', function () {
-        $("#" + $(this).attr("id") + "Display").text($(this).val());
-    });
-});
+
 
 function printDet() {
     $("#determinant").text(String(math.abs((math.round(math.det(my_matrix) * 100)) / 100)));
