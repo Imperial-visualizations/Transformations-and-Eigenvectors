@@ -28,6 +28,7 @@
 <script type="text/javascript" src="scripts/MathJax-master/MathJax.js">
 </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
 </head>
 <body>
 
@@ -39,6 +40,7 @@
 
 
          <div class="four columns">
+
              <p>
                  In addition to eigenvectors and eigenvalues, other unique properties of matrices and vectors can be visualised geometrically. Commutation is a shared property of two matrices defined by:
                 $$ \bf{\color{#0091D4}A\color{#EC7300}B = \color{#EC7300}B\color{#0091D4}A} $$
@@ -46,7 +48,7 @@
                  Select your own custom two transforms to the initial black vector and press play! You will see that the final white and black vectors represent:
                 </p>
   <!--<input type="button" value="Reset", onclick="reset()">-->
-  <h5>
+    <h5>
         △:
         <font style="color:#0091D4;">
             A
@@ -121,7 +123,8 @@
 
                         <span class="sliderMax">
      2π
-    </span>             
+    </span>
+                    </label>
                 </div>
 
                 </div>
@@ -151,43 +154,35 @@
                             Z axis
                         </option>
                     </select>
-                    </label>
+
                     <div class="rotateCommute" id="slider2">
 
                     <label class="sliderTitle">
                         <strong>Angle:</strong>
                     </label><br>
                     
-
+                    <label class="slider">
                             <span class="sliderMin">
                                     -2π
                                    </span>
                         <input class="inputs" id="rotator2" max="2" min="-2" step="0.125" type="range" value="0.5">
 
                         <span class="sliderMax">
-     2π
-    </span>
-
+                        2π
+                        </span>
+                    </label>
                     </div>
+
                 </div>
             </div>
 
          </div>
-                <!--Rotation-->
 
-                    <p id="matrixDisplay">
-                    </p>
-            
-         </div>
-        <div class="six columns">
-
-        </div>
-
+    </div>
 
 </div>
 
 
-<!--Implement Scripts Here-->
 <script src="scripts/animate.js"
         type="text/javascript"></script>
 

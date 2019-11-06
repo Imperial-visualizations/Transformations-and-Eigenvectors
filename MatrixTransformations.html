@@ -28,6 +28,7 @@
     <script type="text/javascript" src="scripts/MathJax-master/MathJax.js">
     </script>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
 </head>
 
 <body>
@@ -37,6 +38,8 @@
 
 
             <div class="four columns">
+
+
                 Operators and vectors are mathematical concepts that appear in all parts of the natural sciences, and
                 often appear in high-dimension complex systems. If we focus only on two dimensional matrices and
                 vectors, we can develop a very physical interpretation of them. 
@@ -144,18 +147,18 @@
                             <div class="sliderSkew">
                                 <label class="sliderTitle">X-axis angle: <span id="skewxIDDisplay">0</span>π</label>
                                 <label class="slider">
-                                    <span class="sliderMin">$0$</span>
+                                    <span class="sliderMin">0</span>
                                     <input class="slider" id="skewxID" type="range" value="0" min="0" max="0.25" step="0.025"
                                         onchange="skewmatrix1()" data-unit="radians" />
-                                    <span class="sliderMax">$\frac{π}{4}$</span>
+                                    <span class="sliderMax">π/4</span>
                                 </label>
 
                                 <label class="sliderTitle">Y-axis angle:<span id="skewyIDDisplay">0</span>π</label>
                                 <label class="slider">
-                                    <span class="sliderMin">$0$</span>
+                                    <span class="sliderMin">0</span>
                                     <input class="slider" id="skewyID" type="range" value="0" min="0" max="0.25" step="0.025"
                                         onchange="skewmatrix2()" data-unit="radians" />
-                                    <span class="sliderMax">$\frac{π}{4}$</span>
+                                    <span class="sliderMax">π/4</span>
                                 </label>
                                 <input class="button-primary" type="submit" value="Apply" onclick="plotSkew()">
 
@@ -163,10 +166,8 @@
 
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="row">
+                    </div>
 
                 </div>
             </div>
@@ -177,7 +178,7 @@
 
 
 
-    <!--THE BRAINS-->
+
     <script src="scripts/Introducing_Matrix_Transformations.js"></script>
 </body>
 
